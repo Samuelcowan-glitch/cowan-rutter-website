@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Property Search — Cowan &amp; Rutter, Chelsea Property Consultants</title>
+  <meta name="description" content="Search current commercial and residential properties from Cowan & Rutter, established property consultants in Chelsea, London." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container nav-inner">
+      <a class="brand" href="../">
+        <img src="../img/logo.png" alt="Cowan &amp; Rutter" class="brand-logo" />
+      </a>
+      <nav class="nav-links">
+        <a href="../">Home</a>
+        <a href="../services/">Services</a>
+        <a href="../properties/" class="active">Properties</a>
+        <a href="../team/">Our Team</a>
+        <a href="../contact/">Contact</a>
+      </nav>
+      <button class="nav-toggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- Page hero -->
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Property Search</span>
+      <h1>Current opportunities<br />across South West London.</h1>
+      <p>Browse our live commercial and residential instructions, or get in touch for properties not yet advertised.</p>
+    </div>
+  </section>
+
+  <!-- Search / Filters -->
+  <section class="section" style="padding-bottom:0;">
+    <div class="container">
+      <form class="property-filters reveal" id="property-filters">
+        <div class="field">
+          <label for="filter-type">Property Type</label>
+          <select id="filter-type" name="type">
+            <option value="">All Types</option>
+            <option value="Commercial">Commercial</option>
+            <option value="Residential">Residential</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="filter-status">Status</label>
+          <select id="filter-status" name="status">
+            <option value="">For Sale &amp; To Let</option>
+            <option value="Sale">For Sale</option>
+            <option value="Let">To Let</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="filter-price">Max Price</label>
+          <select id="filter-price" name="maxPrice">
+            <option value="">Any Price</option>
+            <option value="500000">£500,000</option>
+            <option value="1000000">£1,000,000</option>
+            <option value="2500000">£2,500,000</option>
+            <option value="5000000">£5,000,000</option>
+          </select>
+        </div>
+        <button type="submit" class="btn">Search</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Results -->
+  <section class="section">
+    <div class="container">
+      <div class="property-grid reveal" id="property-results">
+        <!-- Property cards are rendered here by js/main.js -->
+      </div>
+      <p class="property-empty" id="property-empty" style="display:none;color:var(--muted);text-align:center;margin-top:30px;">
+        No properties match your search. Please adjust your filters, or <a href="../contact/" style="border-bottom:1px solid var(--brass);">contact us</a> directly.
+      </p>
+    </div>
+  </section>
+
+  <!-- CTA band -->
+  <section class="cta-band">
+    <div class="container">
+      <span class="eyebrow">Can't Find What You're Looking For?</span>
+      <h2>We have access to off-market opportunities.</h2>
+      <p>Many of our best instructions are never advertised. Tell us what you're looking for and we'll be in touch.</p>
+      <a href="../contact/" class="btn btn-light">Register Your Requirements</a>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="brand-name">Cowan &amp; Rutter</span>
+          <p>Established property consultants, advising across Chelsea and West London.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigate</h4>
+          <a href="../">Home</a>
+          <a href="../services/">Services</a>
+          <a href="../properties/">Properties</a>
+          <a href="../team/">Our Team</a>
+          <a href="../contact/">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Visit Us</h4>
+          <p>319 The Plaza<br />535 King's Road<br />London SW10 0SZ</p>
+          <a href="tel:+442073496666">020 7349 6666</a>
+          <a href="mailto:enquiries@cowanandrutter.co.uk">enquiries@cowanandrutter.co.uk</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="year">2026</span> Cowan &amp; Rutter Property Services Limited. All rights reserved. · <a href="../privacy-statement/">Privacy</a> · <a href="../cookie-statement/">Cookies</a></span>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/company/cowan-&amp;-rutter-property-services-limited/posts/?feedView=all" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 110-4.14 2.07 2.07 0 010 4.14zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+          </a>
+        </div>
+        <span>Chelsea · Kensington · Fulham · Putney</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
