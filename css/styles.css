@@ -1,5 +1,5 @@
 /* =========================================================
-   Cowan & Rutter — Boutique Real Estate Consultancy, Chelsea
+   Cowan & Rutter — Established Real Estate Consultancy, Chelsea
    ========================================================= */
 
 :root {
@@ -7,8 +7,8 @@
   --ink-soft:   #1c3160;
   --cream:      #ffffff;   /* white background         */
   --cream-deep: #eef2f8;   /* very light blue-grey     */
-  --brass:      #d9636e;   /* red accent               */
-  --brass-dark: rgba(217, 99, 110, 0.10);
+  --brass:      #e0303f;   /* red accent (lighter fire engine red) */
+  --brass-dark: rgba(224, 48, 63, 0.10);
   --text:       #1f2937;
   --muted:      #5b6675;
   --line:       rgba(14, 31, 68, 0.12);
@@ -109,6 +109,7 @@ h1, h2, h3, h4 {
 }
 
 .brand { display: flex; flex-direction: column; line-height: 1; }
+.brand-logo { height: 60px; width: auto; display: block; transform: scaleX(1.15); transform-origin: left center; }
 .brand-name {
   font-family: var(--serif);
   font-size: 1.55rem;
