@@ -268,7 +268,7 @@ h1, h2, h3, h4 {
 .page-hero::before {
   content: "";
   position: absolute; inset: 0;
-  background-image: url("https://images.unsplash.com/photo-1529655683826-aba9b3e77383?auto=format&fit=crop&w=2200&q=80");
+  background-image: url("../img/page-hero.jpg");
   background-size: cover;
   background-position: center;
   opacity: 0.32;
@@ -277,7 +277,7 @@ h1, h2, h3, h4 {
 .page-hero::after {
   content: "";
   position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(14,31,68,0.58), rgba(14,31,68,0.88));
+  background: linear-gradient(180deg, rgba(14,31,68,0.38), rgba(14,31,68,0.68));
 }
 .page-hero .container { position: relative; z-index: 2; }
 .page-hero h1 { color: var(--white); font-size: clamp(2.4rem, 5vw, 4rem); }
@@ -401,6 +401,42 @@ section { position: relative; }
   width: 8px; height: 8px;
   border: 1px solid var(--brass);
   transform: rotate(45deg);
+}
+
+/* ---------- Team ---------- */
+.team-row {
+  display: grid;
+  grid-template-columns: 0.9fr 1.5fr;
+  gap: 70px;
+  align-items: start;
+  padding: 50px 0;
+}
+.team-photo {
+  aspect-ratio: 4 / 5;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 26px 50px -28px rgba(22,32,46,0.45);
+}
+.team-info h3 { font-size: clamp(1.9rem, 3.4vw, 2.6rem); margin-bottom: 18px; }
+.team-info p { color: var(--muted); }
+.testimonial {
+  margin-top: 30px;
+  padding-left: 24px;
+  border-left: 3px solid var(--brass);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--ink-soft);
+}
+.testimonial cite {
+  display: block;
+  margin-top: 12px;
+  font-family: var(--sans);
+  font-style: normal;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
 /* ---------- CTA band ---------- */
@@ -536,7 +572,7 @@ section { position: relative; }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 940px) {
-  .split, .service-row, .service-row.flip, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+  .split, .service-row, .service-row.flip, .contact-grid, .team-row { grid-template-columns: 1fr; gap: 40px; }
   .service-row.flip .text { order: 0; }
   .services-grid { grid-template-columns: 1fr; }
   .service-card { border-right: 0; border-bottom: 1px solid var(--line); }
