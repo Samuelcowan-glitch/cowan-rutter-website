@@ -279,6 +279,7 @@ h1, h2, h3, h4 {
   position: absolute; inset: 0;
   background: linear-gradient(180deg, rgba(14,31,68,0.38), rgba(14,31,68,0.68));
 }
+.team-hero::before { background-image: url("../img/kings-road.jpg"); }
 .page-hero .container { position: relative; z-index: 2; }
 .page-hero h1 { color: var(--white); font-size: clamp(2.4rem, 5vw, 4rem); }
 .page-hero .eyebrow { color: var(--brass); }
