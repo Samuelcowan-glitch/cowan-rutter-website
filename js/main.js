@@ -55,14 +55,32 @@
     }, { passive: true });
   }
 
-  /* ---- Contact form (front-end demo) ---- */
+  /* ---- Contact form (opens a pre-filled email to bc@cowanandrutter.co.uk) ---- */
   var form = document.getElementById("contact-form");
   if (form) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
+
+      var data = Object.fromEntries(new FormData(form));
+      var subject = "New enquiry from cowanandrutter.co.uk — " + (data.interest || "General Enquiry");
+      var bodyLines = [
+        "Name: " + (data.name || ""),
+        "Email: " + (data.email || ""),
+        "Telephone: " + (data.phone || ""),
+        "Area of Interest: " + (data.interest || ""),
+        "",
+        "Message:",
+        data.message || ""
+      ];
+      var mailto =
+        "mailto:bc@cowanandrutter.co.uk" +
+        "?subject=" + encodeURIComponent(subject) +
+        "&body=" + encodeURIComponent(bodyLines.join("\n"));
+
+      window.location.href = mailto;
+
       var note = document.getElementById("form-success");
       if (note) note.classList.add("show");
-      form.reset();
     });
   }
 
