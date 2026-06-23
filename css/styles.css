@@ -282,7 +282,7 @@ h1, h2, h3, h4 {
 .team-hero::before { background-image: url("../img/kings-road.jpg"); }
 .page-hero .container { position: relative; z-index: 2; }
 .page-hero h1 { color: var(--white); font-size: clamp(2.4rem, 5vw, 4rem); }
-.page-hero .eyebrow { color: var(--brass); }
+.page-hero .eyebrow { color: var(--brass); font-size: 1rem; letter-spacing: 0.22em; }
 .page-hero p { color: rgba(255,255,255,0.82); max-width: 560px; margin-top: 18px; font-weight: 300; }
 
 /* ---------- Section scaffolding ---------- */

@@ -3,14 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Property Search — Cowan &amp; Rutter, Chelsea Property Consultants</title>
-  <meta name="description" content="Search current commercial and residential properties from Cowan & Rutter, established property consultants in Chelsea, London." />
+  <title>Property Search &mdash; Cowan &amp; Rutter, Chelsea Property Consultants</title>
+  <meta name="description" content="Search current commercial and residential property across Chelsea, Kensington, Fulham and Putney with Cowan &amp; Rutter, established property consultants on the King's Road." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/property-search.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
-<body>
+<body class="ps-page">
 
   <header class="site-header">
     <div class="container nav-inner">
@@ -28,69 +30,77 @@
     </div>
   </header>
 
-  <!-- Page hero -->
-  <section class="page-hero">
+  <!-- Hero -->
+  <section class="ps-hero">
     <div class="container">
       <span class="eyebrow">Property Search</span>
-      <h1>Current opportunities<br />across South West London.</h1>
-      <p>Browse our live commercial and residential instructions, or get in touch for properties not yet advertised.</p>
+      <h1>Find the address that feels like <em>home</em>.</h1>
+      <p class="ps-hero-sub">Browse our current commercial and residential instructions across Chelsea, Kensington, Fulham and Putney &mdash; or tell us what you are looking for and we will find it.</p>
     </div>
   </section>
 
-  <!-- Search / Filters -->
-  <section class="section" style="padding-bottom:0;">
-    <div class="container">
-      <form class="property-filters reveal" id="property-filters">
-        <div class="field">
-          <label for="filter-type">Property Type</label>
-          <select id="filter-type" name="type">
-            <option value="">All Types</option>
-            <option value="Commercial">Commercial</option>
-            <option value="Residential">Residential</option>
-          </select>
+  <!-- Floating search console -->
+  <div class="ps-console-wrap">
+    <div class="ps-console">
+      <div class="ps-fields">
+        <div class="ps-field ps-field-cat">
+          <label>Looking for</label>
+          <div class="ps-seg" id="ps-cat"></div>
         </div>
-        <div class="field">
-          <label for="filter-status">Status</label>
-          <select id="filter-status" name="status">
-            <option value="">For Sale &amp; To Let</option>
-            <option value="Sale">For Sale</option>
-            <option value="Let">To Let</option>
-          </select>
+        <div class="ps-field">
+          <label>Status</label>
+          <div class="ps-select"><select id="ps-status" aria-label="Status"></select></div>
         </div>
-        <div class="field">
-          <label for="filter-price">Max Price</label>
-          <select id="filter-price" name="maxPrice">
-            <option value="">Any Price</option>
-            <option value="500000">£500,000</option>
-            <option value="1000000">£1,000,000</option>
-            <option value="2500000">£2,500,000</option>
-            <option value="5000000">£5,000,000</option>
-          </select>
+        <div class="ps-field ps-res">
+          <label>Property type</label>
+          <div class="ps-select"><select id="ps-type" aria-label="Property type"></select></div>
         </div>
-        <button type="submit" class="btn">Search</button>
-      </form>
+        <div class="ps-field ps-res">
+          <label>Price</label>
+          <div class="ps-select"><select id="ps-price" aria-label="Price"></select></div>
+        </div>
+        <div class="ps-field ps-com">
+          <label>Use</label>
+          <div class="ps-select"><select id="ps-use" aria-label="Use"></select></div>
+        </div>
+        <div class="ps-field ps-com">
+          <label>Floor area</label>
+          <div class="ps-select"><select id="ps-size" aria-label="Floor area"></select></div>
+        </div>
+      </div>
+
+      <div class="ps-subbar">
+        <div class="ps-resultline">
+          <span class="ps-count"><strong id="ps-count">0</strong> <span id="ps-count-label">properties</span></span>
+          <div class="ps-chips" id="ps-chips"></div>
+          <button class="ps-clear" id="ps-clear" type="button">Clear all</button>
+        </div>
+        <div class="ps-subbar-right">
+          <div class="ps-select"><select id="ps-sort" aria-label="Sort"></select></div>
+          <div class="ps-seg" id="ps-view"></div>
+        </div>
+      </div>
     </div>
-  </section>
+  </div>
 
   <!-- Results -->
-  <section class="section">
+  <section class="ps-results">
     <div class="container">
-      <div class="property-grid reveal" id="property-results">
-        <!-- Property cards are rendered here by js/main.js -->
+      <div class="ps-grid" id="ps-grid"></div>
+      <div class="ps-mapbox" id="ps-mapbox" hidden>
+        <div class="ps-map" id="ps-map"></div>
+        <div class="ps-maphint"><strong id="ps-mapcount">0</strong> properties &middot; click a marker for details</div>
       </div>
-      <p class="property-empty" id="property-empty" style="display:none;color:var(--muted);text-align:center;margin-top:30px;">
-        No properties match your search. Please adjust your filters, or <a href="../contact/" style="border-bottom:1px solid var(--brass);">contact us</a> directly.
-      </p>
     </div>
   </section>
 
   <!-- CTA band -->
   <section class="cta-band">
     <div class="container">
-      <span class="eyebrow">Can't Find What You're Looking For?</span>
+      <span class="eyebrow">Can&rsquo;t see what you need?</span>
       <h2>We have access to off-market opportunities.</h2>
-      <p>Many of our best instructions are never advertised. Tell us what you're looking for and we'll be in touch.</p>
-      <a href="../contact/" class="btn btn-light">Register Your Requirements</a>
+      <p>Many of our finest instructions are never publicly advertised. Tell us what you are searching for and we will be in touch.</p>
+      <a href="../contact/" class="btn btn-light">Register your requirements</a>
     </div>
   </section>
 
@@ -111,23 +121,29 @@
         </div>
         <div class="footer-col">
           <h4>Visit Us</h4>
-          <p>319 The Plaza<br />535 King's Road<br />London SW10 0SZ</p>
+          <p>319 The Plaza<br />535 King&rsquo;s Road<br />London SW10 0SZ</p>
           <a href="tel:+442073496666">020 7349 6666</a>
           <a href="mailto:enquiries@cowanandrutter.co.uk">enquiries@cowanandrutter.co.uk</a>
         </div>
       </div>
       <div class="footer-bottom">
-        <span>© <span id="year">2026</span> Cowan &amp; Rutter Property Services Limited. All rights reserved. · <a href="../privacy-statement/">Privacy</a> · <a href="../cookie-statement/">Cookies</a></span>
+        <span>&copy; <span id="year">2026</span> Cowan &amp; Rutter Property Services Limited. All rights reserved. &middot; <a href="../privacy-statement/">Privacy</a> &middot; <a href="../cookie-statement/">Cookies</a></span>
         <div class="social-links">
           <a href="https://www.linkedin.com/company/cowan-&amp;-rutter-property-services-limited/posts/?feedView=all" target="_blank" rel="noopener" aria-label="LinkedIn">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 110-4.14 2.07 2.07 0 010 4.14zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
           </a>
         </div>
-        <span>Chelsea · Kensington · Fulham · Putney</span>
+        <span>Chelsea &middot; Kensington &middot; Fulham &middot; Putney</span>
       </div>
     </div>
   </footer>
 
+  <!-- Quick-view slide-over -->
+  <div class="ps-panel" id="ps-panel" hidden></div>
+
   <script src="../js/main.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="../js/listings.js"></script>
+  <script src="../js/property-search.js"></script>
 </body>
 </html>
