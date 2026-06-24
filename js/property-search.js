@@ -88,13 +88,15 @@
     renderChips();
 
     if (state.view === 'grid') {
-      els.grid.hidden = false; els.mapbox.hidden = true;
-      if (map) { map.remove(); map = null; markers = {}; }
+      els.grid.style.display = '';
+      els.mapbox.style.display = 'none';
+      if (map) { try { map.remove(); } catch(e){} map = null; markers = {}; }
       els.grid.innerHTML = list.length ? list.map(cardHTML).join('') : emptyHTML();
     } else {
-      els.grid.hidden = true; els.mapbox.hidden = false;
+      els.grid.style.display = 'none';
+      els.mapbox.style.display = 'block';
       els.mapcount.textContent = list.length;
-      setTimeout(function () { ensureMap(); syncMarkers(list); if (map) map.invalidateSize(); }, 50);
+      showMap(list);
     }
   }
 
@@ -131,17 +133,39 @@
   function emptyHTML() { return '<div class="ps-empty"><h3>No properties match those filters.</h3><button type="button" class="btn" id="ps-reset">Reset search</button></div>'; }
 
   /* map */
-  function ensureMap() {
-    if (map) { map.invalidateSize(); return; }
+  function showMap(list) {
     if (!window.L) {
-      els.map.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#5b6675;font-family:Jost,sans-serif;font-size:0.9rem;">Map unavailable — please refresh the page.</div>';
+      document.getElementById('ps-map').innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#5b6675;font-family:sans-serif;font-size:1rem;padding:40px;">Map unavailable — please refresh the page.</div>';
       return;
     }
-    try {
-      map = L.map(els.map, { zoomControl: true, scrollWheelZoom: false }).setView([51.485, -0.18], 12);
-      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>' }).addTo(map);
-      setTimeout(function () { if (map) map.invalidateSize(); }, 300);
-    } catch (e) { console.warn('Map init failed', e); }
+    if (map) { try { map.remove(); } catch(e){} map = null; markers = {}; }
+    setTimeout(function() {
+      try {
+        map = L.map('ps-map', { zoomControl: true, scrollWheelZoom: false });
+        map.setView([51.484, -0.186], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          subdomains: 'abc', maxZoom: 19,
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+        var pts = [];
+        list.forEach(function(l) {
+          if (!l.lat || !l.lng) return;
+          var price = CR.formatPrice(l).replace(' per annum','/yr').replace(' pcm','/m').replace('Price on application','POA');
+          var icon = L.divIcon({className:'cr-pinwrap', html:'<div class="cr-pin"><span class="cr-tag">'+price+'</span><span class="cr-stem"></span></div>', iconSize:[1,1], iconAnchor:[0,0]});
+          var m = L.marker([l.lat, l.lng], {icon:icon}).addTo(map);
+          m.on('click', function(){ openQuick(l.id); });
+          markers[l.id] = m;
+          pts.push([l.lat, l.lng]);
+        });
+        setTimeout(function() {
+          if (!map) return;
+          map.invalidateSize();
+          if (pts.length) try { map.fitBounds(pts, {padding:[55,55], maxZoom:14}); } catch(e){}
+        }, 200);
+      } catch(e) {
+        document.getElementById('ps-map').innerHTML = '<div style="padding:20px;color:red;font-family:sans-serif;">Map error: ' + e.message + '</div>';
+      }
+    }, 150);
   }
   function syncMarkers(list) {
     if (!map || !window.L) return;
@@ -179,16 +203,59 @@
           +'<div class="ps-panel-addr">'+esc(l.address)+', '+l.postcode+'</div>'
           +'<div class="ps-facts">'+facts(l).map(function(f){return '<div class="ps-fact"><dt>'+esc(f[0])+'</dt><dd>'+esc(String(f[1]))+'</dd></div>';}).join('')+'</div>'
           +'<p class="ps-blurb">'+esc(l.blurb)+'</p>'
-          +'<div class="ps-panel-actions"><a href="../contact/" class="ps-btn-solid">Arrange a viewing</a>'
-          +'<button type="button" class="ps-btn-fav" id="ps-panel-fav">'+(fav?'Saved ♥':'Save ♡')+'</button></div>'
+          +'<div class="ps-panel-actions" style="flex-direction:column;gap:0;">'
+          +'<form id="ps-view-form" style="width:100%;">'
+            +'<input type="hidden" name="property" value="'+esc(l.title)+' — '+esc(l.address)+', '+esc(l.postcode)+'">'
+            +'<div style="display:grid;gap:10px;margin-bottom:14px;">'
+              +'<input type="text" name="from_name" placeholder="Your name *" required style="font-family:inherit;font-size:.88rem;padding:11px 14px;border:1px solid rgba(14,31,68,.18);background:#fff;width:100%;">'
+              +'<input type="email" name="from_email" placeholder="Your email *" required style="font-family:inherit;font-size:.88rem;padding:11px 14px;border:1px solid rgba(14,31,68,.18);background:#fff;width:100%;">'
+              +'<input type="tel" name="phone" placeholder="Phone (optional)" style="font-family:inherit;font-size:.88rem;padding:11px 14px;border:1px solid rgba(14,31,68,.18);background:#fff;width:100%;">'
+              +'<textarea name="message" placeholder="Any specific requirements?" rows="2" style="font-family:inherit;font-size:.88rem;padding:11px 14px;border:1px solid rgba(14,31,68,.18);background:#fff;width:100%;resize:vertical;"></textarea>'
+            +'</div>'
+            +'<button type="submit" class="ps-btn-solid" style="width:100%;" id="ps-view-submit">Arrange a Viewing</button>'
+          +'</form>'
+          +'<div style="display:flex;gap:12px;margin-top:12px;">'
+            +'<button type="button" class="ps-btn-fav" id="ps-panel-fav" style="flex:1;">'+(fav?'Saved ♥':'Save ♡')+'</button>'
+          +'</div></div>'
         +'</div></aside>';
     els.panel.hidden = false;
     document.body.style.overflow = 'hidden';
     Array.prototype.forEach.call(els.panel.querySelectorAll('[data-close]'),function(x){x.addEventListener('click',closeQuick);});
-    els.panel.querySelector('#ps-panel-fav').addEventListener('click',function(){toggleFav(id);});
+    var favBtn = els.panel.querySelector('#ps-panel-fav');
+    if (favBtn) favBtn.addEventListener('click',function(){toggleFav(id);});
+    var viewForm = els.panel.querySelector('#ps-view-form');
+    if (viewForm) {
+      viewForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (typeof emailjs === 'undefined') { alert('Email service not available. Please call 020 7349 6666.'); return; }
+        var btn = document.getElementById('ps-view-submit');
+        if (btn) { btn.textContent = 'Sending…'; btn.disabled = true; }
+        var d = Object.fromEntries(new FormData(viewForm));
+        emailjs.send('service_j0aq6ii','template_868qre6',{
+          from_name:  d.from_name  || '',
+          from_email: d.from_email || '',
+          phone:      d.phone      || '',
+          property:   d.property   || '',
+          interest:   'Arrange a viewing',
+          message:    d.message    || 'Please contact me to arrange a viewing.',
+          subject:    'Viewing request — ' + (d.property || 'Property enquiry')
+        }).then(function(){
+          viewForm.innerHTML = '<p style="color:#0e1f44;font-family:inherit;font-size:.95rem;padding:16px 0;text-align:center;">Thank you — we will be in touch shortly to arrange your viewing.</p>';
+        },function(){
+          if (btn) { btn.textContent = 'Arrange a Viewing'; btn.disabled = false; }
+          alert('Something went wrong. Please call 020 7349 6666.');
+        });
+      });
+    }
   }
   function renderPanelFav(){var b=els.panel.querySelector('#ps-panel-fav');if(b)b.textContent=state.favs[state.quickId]?'Saved ♥':'Save ♡';}
   function closeQuick(){state.quickId=null;els.panel.hidden=true;els.panel.innerHTML='';document.body.style.overflow='';}
 
   render();
+
+  /* Re-render when live DB listings arrive from listings.js fetch */
+  document.addEventListener('cr:listings-updated', function () {
+    DATA = window.CR_LISTINGS;
+    render();
+  });
 })();
