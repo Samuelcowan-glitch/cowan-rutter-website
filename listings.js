@@ -319,24 +319,10 @@
 
   window.CR_LISTINGS = L;
 
-  /* ── Live DB fetch ──────────────────────────────────────────────────────────
-     Fetches listings marked as "website_listed" from the property database.
-     Merges them with the hardcoded array above (DB listings prepended so they
-     appear first when sorted by featured/newest).
-     Change CR_API_URL to the deployed server address when going live.        */
-  var CR_API_URL = 'https://web-production-3d01.up.railway.app/api/listings';
-  if (typeof fetch !== 'undefined') {
-    fetch(CR_API_URL)
-      .then(function (r) { return r.ok ? r.json() : []; })
-      .then(function (live) {
-        if (!live || !live.length) return;
-        var existingIds = {};
-        L.forEach(function (l) { existingIds[l.id] = true; });
-        var added = live.filter(function (l) { return !existingIds[l.id]; });
-        window.CR_LISTINGS = added.concat(L);
-        document.dispatchEvent(new CustomEvent('cr:listings-updated'));
-      })
-      .catch(function () { /* DB offline — hardcoded listings only */ });
+  /* Live DB fetch disabled — hardcoded listings are the source of truth for
+     the website. Enquiries from the website are captured via /api/enquiry.
+     To add a new listing: add it to the L array above AND to the DB. */
+  if (false) {
   }
 
   window.CR = {
