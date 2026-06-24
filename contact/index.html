@@ -73,14 +73,15 @@
         <!-- Form -->
         <div class="reveal">
           <form class="form" id="contact-form" novalidate>
+            <input type="hidden" name="property" id="property-prefill" value="" />
             <div class="row">
               <div class="field">
-                <label for="name">Full Name</label>
-                <input type="text" id="name" name="name" required />
+                <label for="from_name">Full Name</label>
+                <input type="text" id="from_name" name="from_name" required />
               </div>
               <div class="field">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required />
+                <label for="from_email">Email</label>
+                <input type="email" id="from_email" name="from_email" required />
               </div>
             </div>
             <div class="row">
@@ -102,10 +103,10 @@
               <label for="message">Message</label>
               <textarea id="message" name="message" placeholder="How can we help?" required></textarea>
             </div>
-            <button type="submit" class="btn">Send Enquiry</button>
+            <button type="submit" class="btn" id="contact-submit">Send Enquiry</button>
             <p class="form-note">We aim to respond to all enquiries within one working day.</p>
             <div class="form-success" id="form-success">
-              Your email app should now open with your enquiry pre-filled — just hit send. If nothing opens, please email us directly at bc@cowanandrutter.co.uk.
+              Thank you — your enquiry has been sent. A member of the team will be in touch within one working day.
             </div>
           </form>
         </div>
@@ -157,6 +158,7 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script src="../js/main.js"></script>
 </body>
 </html>
