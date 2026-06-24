@@ -206,13 +206,15 @@
           +'<div class="ps-panel-actions" style="flex-direction:column;gap:0;">'
           +'<form id="ps-view-form" style="width:100%;">'
             +'<input type="hidden" name="property" value="'+esc(l.title)+' — '+esc(l.address)+', '+esc(l.postcode)+'">'
+            +'<input type="hidden" name="transaction" value="'+(l.status||'let')+'">'
+            +'<input type="hidden" name="category"    value="'+(l.category||'commercial')+'">'
             +'<div style="display:grid;gap:10px;margin-bottom:14px;">'
               +'<input type="text" name="from_name" placeholder="Your name *" required style="font-family:inherit;font-size:.88rem;padding:11px 14px;border:1px solid rgba(14,31,68,.18);background:#fff;width:100%;">'
               +'<input type="email" name="from_email" placeholder="Your email *" required style="font-family:inherit;font-size:.88rem;padding:11px 14px;border:1px solid rgba(14,31,68,.18);background:#fff;width:100%;">'
               +'<input type="tel" name="phone" placeholder="Phone (optional)" style="font-family:inherit;font-size:.88rem;padding:11px 14px;border:1px solid rgba(14,31,68,.18);background:#fff;width:100%;">'
               +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">'
                 +'<div>'
-                  +'<label style="display:block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:#5b6675;margin-bottom:6px;">Min Size</label>'
+                  +'<label style="display:block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:#0e1f44;margin-bottom:6px;">Min Size</label>'
                   +'<select name="sqft_min" style="width:100%;font-family:inherit;font-size:.88rem;padding:11px 14px;border:1px solid rgba(14,31,68,.18);background:#fff;">'
                     +'<option value="">No minimum</option>'
                     +'<option>100 sq ft</option><option>250 sq ft</option><option>500 sq ft</option>'
@@ -221,7 +223,7 @@
                   +'</select>'
                 +'</div>'
                 +'<div>'
-                  +'<label style="display:block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:#5b6675;margin-bottom:6px;">Max Size</label>'
+                  +'<label style="display:block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:#0e1f44;margin-bottom:6px;">Max Size</label>'
                   +'<select name="sqft_max" style="width:100%;font-family:inherit;font-size:.88rem;padding:11px 14px;border:1px solid rgba(14,31,68,.18);background:#fff;">'
                     +'<option value="">No maximum</option>'
                     +'<option>500 sq ft</option><option>750 sq ft</option><option>1,000 sq ft</option>'
@@ -232,7 +234,7 @@
               +'</div>'
               +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">'
                 +'<div>'
-                  +'<label style="display:block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:#5b6675;margin-bottom:6px;">Min Budget</label>'
+                  +'<label style="display:block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:#0e1f44;margin-bottom:6px;">Min Budget</label>'
                   +'<select name="budget_min" style="width:100%;font-family:inherit;font-size:.88rem;padding:11px 14px;border:1px solid rgba(14,31,68,.18);background:#fff;">'
                     +'<option value="">No minimum</option>'
                     +'<option>£500 pcm</option><option>£1,000 pcm</option><option>£2,000 pcm</option>'
@@ -241,7 +243,7 @@
                   +'</select>'
                 +'</div>'
                 +'<div>'
-                  +'<label style="display:block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:#5b6675;margin-bottom:6px;">Max Budget</label>'
+                  +'<label style="display:block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:#0e1f44;margin-bottom:6px;">Max Budget</label>'
                   +'<select name="budget_max" style="width:100%;font-family:inherit;font-size:.88rem;padding:11px 14px;border:1px solid rgba(14,31,68,.18);background:#fff;">'
                     +'<option value="">No maximum</option>'
                     +'<option>£1,000 pcm</option><option>£2,000 pcm</option><option>£5,000 pcm</option>'
@@ -271,15 +273,33 @@
         var btn = document.getElementById('ps-view-submit');
         if (btn) { btn.textContent = 'Sending…'; btn.disabled = true; }
         var d = Object.fromEntries(new FormData(viewForm));
+        var msgBody = 'Size requirement: ' + (d.sqft_min || 'No min') + ' – ' + (d.sqft_max || 'No max')
+                    + '\nBudget: ' + (d.budget_min || 'No min') + ' – ' + (d.budget_max || 'No max')
+                    + (d.message ? '\n\nAdditional requirements:\n' + d.message : '');
+
+        // Mirror into the property database (silent — never blocks the form)
+        fetch('http://127.0.0.1:8080/api/enquiry', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            from_name:   d.from_name  || '',
+            from_email:  d.from_email || '',
+            phone:       d.phone      || '',
+            property:    d.property   || '',
+            interest:    'Arrange a viewing',
+            transaction: d.transaction || 'let',
+            category:    d.category   || 'commercial',
+            message:     msgBody
+          })
+        }).catch(function(){});
+
         emailjs.send('service_j0aq6ii','template_868qre6',{
           from_name:  d.from_name  || '',
           from_email: d.from_email || '',
           phone:      d.phone      || '',
           property:   d.property   || '',
           interest:   'Arrange a viewing',
-          message:    'Size requirement: ' + (d.sqft_min || 'No min') + ' – ' + (d.sqft_max || 'No max')
-                    + '\nBudget: ' + (d.budget_min || 'No min') + ' – ' + (d.budget_max || 'No max')
-                    + (d.message ? '\n\nAdditional requirements:\n' + d.message : ''),
+          message:    msgBody,
           subject:    'Viewing request — ' + (d.property || 'Property enquiry')
         }).then(function(){
           viewForm.innerHTML = '<p style="color:#0e1f44;font-family:inherit;font-size:.95rem;padding:16px 0;text-align:center;">Thank you — we will be in touch shortly to arrange your viewing.</p>';
