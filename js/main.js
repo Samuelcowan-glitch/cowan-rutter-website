@@ -81,6 +81,25 @@
       if (btn) { btn.textContent = 'Sending…'; btn.disabled = true; }
 
       var data = Object.fromEntries(new FormData(form));
+
+      // Silently mirror every submission into the property database.
+      // Falls back gracefully if the DB server is offline.
+      var params = new URLSearchParams(window.location.search);
+      fetch('https://web-production-3d01.up.railway.app/api/enquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          from_name:   data.from_name  || '',
+          from_email:  data.from_email || '',
+          phone:       data.phone      || '',
+          property:    data.property   || '',
+          interest:    data.interest   || 'General Enquiry',
+          message:     data.message    || '',
+          transaction: params.get('transaction') || '',
+          category:    params.get('category')    || ''
+        })
+      }).catch(function () { /* DB offline — email still sends fine */ });
+
       emailjs.send(EJS_SERVICE, EJS_TEMPLATE, {
         from_name:  data.from_name  || '',
         from_email: data.from_email || '',
