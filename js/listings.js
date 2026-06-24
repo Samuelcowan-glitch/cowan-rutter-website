@@ -328,11 +328,8 @@
       .then(function (r) { return r.ok ? r.json() : []; })
       .then(function (live) {
         if (!live || !live.length) return;
-        var existingIds = {};
-        L.forEach(function (l) { existingIds[l.id] = true; });
-        var added = live.filter(function (l) { return !existingIds[l.id]; });
-        if (!added.length) return;
-        window.CR_LISTINGS = added.concat(L);
+        // Replace hardcoded listings with live DB data entirely (no duplicates)
+        window.CR_LISTINGS = live;
         document.dispatchEvent(new CustomEvent('cr:listings-updated'));
       })
       .catch(function () {});
