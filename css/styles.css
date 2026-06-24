@@ -493,8 +493,9 @@ section { position: relative; }
 }
 .team-photo {
   aspect-ratio: 4 / 5;
+  min-height: 420px;
   background-size: cover;
-  background-position: center;
+  background-position: center top;
   box-shadow: 0 26px 50px -28px rgba(22,32,46,0.45);
 }
 .team-info h3 { font-size: clamp(1.9rem, 3.4vw, 2.6rem); margin-bottom: 18px; }
