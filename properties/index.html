@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/styles.css" />
   <link rel="stylesheet" href="../css/property-search.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="../css/leaflet.css" />
 </head>
 <body class="ps-page">
 
@@ -87,7 +87,7 @@
   <section class="ps-results">
     <div class="container">
       <div class="ps-grid" id="ps-grid"></div>
-      <div class="ps-mapbox" id="ps-mapbox" hidden>
+      <div class="ps-mapbox" id="ps-mapbox" style="display:none;">
         <div class="ps-map" id="ps-map"></div>
         <div class="ps-maphint"><strong id="ps-mapcount">0</strong> properties &middot; click a marker for details</div>
       </div>
@@ -141,8 +141,9 @@
   <!-- Quick-view slide-over -->
   <div class="ps-panel" id="ps-panel" hidden></div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script src="../js/main.js"></script>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="../js/leaflet.js"></script>
   <script src="../js/listings.js"></script>
   <script src="../js/property-search.js"></script>
 </body>
