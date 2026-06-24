@@ -28,7 +28,7 @@
 
   function fillSelect(el, opts, val) { el.innerHTML = opts.map(function (o) { return '<option value="'+o.value+'">'+esc(o.label)+'</option>'; }).join(''); el.value = val; }
   function buildSeg(el, items) { el.innerHTML = items.map(function (it) { return '<button type="button" data-val="'+it.val+'">'+esc(it.label)+'</button>'; }).join(''); }
-  function setActive(seg, val) { Array.prototype.forEach.call(seg.querySelectorAll('button'), function (b) { b.classList.toggle('is-active', b.dataset.val === val); }); }
+  function setActive(seg, val) { if (!seg) return; Array.prototype.forEach.call(seg.querySelectorAll('button'), function (b) { b.classList.toggle('is-active', b.dataset.val === val); }); }
 
   /* init controls */
   buildSeg(els.cat, [{val:'all',label:'All'},{val:'residential',label:'Residential'},{val:'commercial',label:'Commercial'}]);
@@ -265,7 +265,7 @@ els.status.addEventListener('change', function () { state.status = this.value; s
                     + (d.message ? '\n\nAdditional requirements:\n' + d.message : '');
 
         // Mirror into the property database (silent — never blocks the form)
-        fetch('https://web-production-727c3.up.railway.app/api/enquiry', {
+        fetch('https://web-production-3d01.up.railway.app/api/enquiry', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

@@ -318,6 +318,26 @@
   }
 
   window.CR_LISTINGS = L;
+
+  /* ── Live DB fetch ──────────────────────────────────────────────────────────
+     Any property marked "List on website" in the database will automatically
+     appear here. Falls back to hardcoded listings if DB is offline.          */
+  var CR_API_URL = 'https://web-production-3d01.up.railway.app/api/listings';
+  if (typeof fetch !== 'undefined') {
+    fetch(CR_API_URL)
+      .then(function (r) { return r.ok ? r.json() : []; })
+      .then(function (live) {
+        if (!live || !live.length) return;
+        var existingIds = {};
+        L.forEach(function (l) { existingIds[l.id] = true; });
+        var added = live.filter(function (l) { return !existingIds[l.id]; });
+        if (!added.length) return;
+        window.CR_LISTINGS = added.concat(L);
+        document.dispatchEvent(new CustomEvent('cr:listings-updated'));
+      })
+      .catch(function () {});
+  }
+
   window.CR = {
     img: img, cap: cap, formatPrice: formatPrice,
     statusLabel: statusLabel, statusBadge: statusBadge,
