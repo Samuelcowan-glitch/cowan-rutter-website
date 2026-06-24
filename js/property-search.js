@@ -8,7 +8,6 @@
 
   var FAV_KEY = 'cr-fav';
   var state = { category:'all', status:'all', type:'all', use:'all', price:'all', size:'all', sort:'featured', view:'grid', favs:loadFavs(), quickId:null };
-  var map = null, markers = {};
 
   var $ = function (s) { return document.querySelector(s); };
   var els = {
@@ -33,7 +32,6 @@
 
   /* init controls */
   buildSeg(els.cat, [{val:'all',label:'All'},{val:'residential',label:'Residential'},{val:'commercial',label:'Commercial'}]);
-  buildSeg(els.view, [{val:'grid',label:'Grid'},{val:'map',label:'Map'}]);
   fillSelect(els.status, CR.statusOptions, state.status);
   fillSelect(els.type, CR.typeOptions, state.type);
   fillSelect(els.price, priceOpts(), state.price);
@@ -43,8 +41,7 @@
 
   /* events */
   els.cat.addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) setCat(b.dataset.val); });
-  els.view.addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) { state.view = b.dataset.val; render(); } });
-  els.status.addEventListener('change', function () { state.status = this.value; state.price = 'all'; fillSelect(els.price, priceOpts(), 'all'); render(); });
+els.status.addEventListener('change', function () { state.status = this.value; state.price = 'all'; fillSelect(els.price, priceOpts(), 'all'); render(); });
   els.type.addEventListener('change', function () { state.type = this.value; render(); });
   els.price.addEventListener('change', function () { state.price = this.value; render(); });
   els.use.addEventListener('change', function () { state.use = this.value; render(); });
@@ -87,17 +84,7 @@
     els.use.value = state.use; els.size.value = state.size; els.sort.value = state.sort;
     renderChips();
 
-    if (state.view === 'grid') {
-      els.grid.style.display = '';
-      els.mapbox.style.display = 'none';
-      if (map) { try { map.remove(); } catch(e){} map = null; markers = {}; }
-      els.grid.innerHTML = list.length ? list.map(cardHTML).join('') : emptyHTML();
-    } else {
-      els.grid.style.display = 'none';
-      els.mapbox.style.display = 'block';
-      els.mapcount.textContent = list.length;
-      showMap(list);
-    }
+    els.grid.innerHTML = list.length ? list.map(cardHTML).join('') : emptyHTML();
   }
 
   function renderChips() {
@@ -278,7 +265,7 @@
                     + (d.message ? '\n\nAdditional requirements:\n' + d.message : '');
 
         // Mirror into the property database (silent — never blocks the form)
-        fetch('http://127.0.0.1:8080/api/enquiry', {
+        fetch('https://web-production-727c3.up.railway.app/api/enquiry', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
