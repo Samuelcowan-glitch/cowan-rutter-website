@@ -94,7 +94,7 @@
     } else {
       els.grid.hidden = true; els.mapbox.hidden = false;
       els.mapcount.textContent = list.length;
-      ensureMap(); syncMarkers(list);
+      setTimeout(function () { ensureMap(); syncMarkers(list); if (map) map.invalidateSize(); }, 50);
     }
   }
 
@@ -132,23 +132,30 @@
 
   /* map */
   function ensureMap() {
-    if (map || !window.L) return;
-    map = L.map(els.map, {zoomControl:true, scrollWheelZoom:false}).setView([51.485,-0.18],12);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:19,attribution:'&copy; OpenStreetMap &middot; &copy; CARTO'}).addTo(map);
-    setTimeout(function(){if(map)map.invalidateSize();},80);
+    if (map) { map.invalidateSize(); return; }
+    if (!window.L) {
+      els.map.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#5b6675;font-family:Jost,sans-serif;font-size:0.9rem;">Map unavailable — please refresh the page.</div>';
+      return;
+    }
+    try {
+      map = L.map(els.map, { zoomControl: true, scrollWheelZoom: false }).setView([51.485, -0.18], 12);
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>' }).addTo(map);
+      setTimeout(function () { if (map) map.invalidateSize(); }, 300);
+    } catch (e) { console.warn('Map init failed', e); }
   }
   function syncMarkers(list) {
-    if (!map) return;
+    if (!map || !window.L) return;
     Object.keys(markers).forEach(function(k){map.removeLayer(markers[k]);}); markers={};
     if (!list.length) return; var pts=[];
     list.forEach(function(l){
-      var price = CR.formatPrice(l).replace(' per annum','/yr').replace(' pcm','/m');
+      if (!l.lat || !l.lng) return;
+      var price = CR.formatPrice(l).replace(' per annum','/yr').replace(' pcm','/m').replace('Price on application','POA');
       var icon = L.divIcon({className:'cr-pinwrap',html:'<div class="cr-pin"><span class="cr-tag">'+price+'</span><span class="cr-stem"></span></div>',iconSize:[1,1],iconAnchor:[0,0]});
       var m = L.marker([l.lat,l.lng],{icon:icon}).addTo(map);
       m.on('click',function(){openQuick(l.id);});
       markers[l.id]=m; pts.push([l.lat,l.lng]);
     });
-    try{map.fitBounds(pts,{padding:[55,55],maxZoom:14});}catch(e){}
+    if (pts.length) try { map.fitBounds(pts,{padding:[55,55],maxZoom:14}); } catch(e){}
   }
 
   /* quick-view slide-over */
