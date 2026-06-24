@@ -324,7 +324,7 @@
      Merges them with the hardcoded array above (DB listings prepended so they
      appear first when sorted by featured/newest).
      Change CR_API_URL to the deployed server address when going live.        */
-  var CR_API_URL = 'https://web-production-727c3.up.railway.app/api/listings';
+  var CR_API_URL = 'https://web-production-3d01.up.railway.app/api/listings';
   if (typeof fetch !== 'undefined') {
     fetch(CR_API_URL)
       .then(function (r) { return r.ok ? r.json() : []; })
