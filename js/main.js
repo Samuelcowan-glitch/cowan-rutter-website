@@ -55,32 +55,51 @@
     }, { passive: true });
   }
 
-  /* ---- Contact form (opens a pre-filled email to bc@cowanandrutter.co.uk) ---- */
+  /* ---- EmailJS config ---- */
+  var EJS_SERVICE  = 'service_j0aq6ii';
+  var EJS_TEMPLATE = 'template_868qre6';
+  var EJS_KEY      = '7Bnpu7fCbIU5NHxMk';
+  if (typeof emailjs !== 'undefined') { emailjs.init({ publicKey: EJS_KEY }); }
+
+  /* ---- Pre-fill property from URL param (e.g. ?property=Plato+Place) ---- */
+  var propPrefill = document.getElementById('property-prefill');
+  if (propPrefill) {
+    var urlProp = new URLSearchParams(window.location.search).get('property');
+    if (urlProp) propPrefill.value = decodeURIComponent(urlProp);
+  }
+
+  /* ---- Contact form (EmailJS) ---- */
   var form = document.getElementById("contact-form");
   if (form) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
+      if (typeof emailjs === 'undefined') {
+        alert('Email service not loaded. Please call us on 020 7349 6666.');
+        return;
+      }
+      var btn = document.getElementById('contact-submit');
+      if (btn) { btn.textContent = 'Sending…'; btn.disabled = true; }
 
       var data = Object.fromEntries(new FormData(form));
-      var subject = "New enquiry from cowanandrutter.co.uk — " + (data.interest || "General Enquiry");
-      var bodyLines = [
-        "Name: " + (data.name || ""),
-        "Email: " + (data.email || ""),
-        "Telephone: " + (data.phone || ""),
-        "Area of Interest: " + (data.interest || ""),
-        "",
-        "Message:",
-        data.message || ""
-      ];
-      var mailto =
-        "mailto:bc@cowanandrutter.co.uk" +
-        "?subject=" + encodeURIComponent(subject) +
-        "&body=" + encodeURIComponent(bodyLines.join("\n"));
-
-      window.location.href = mailto;
-
-      var note = document.getElementById("form-success");
-      if (note) note.classList.add("show");
+      emailjs.send(EJS_SERVICE, EJS_TEMPLATE, {
+        from_name:  data.from_name  || '',
+        from_email: data.from_email || '',
+        phone:      data.phone      || '',
+        property:   data.property   || '',
+        interest:   data.interest   || 'General Enquiry',
+        message:    data.message    || '',
+        subject:    data.property
+          ? 'Viewing request — ' + data.property
+          : 'New enquiry — ' + (data.interest || 'General Enquiry')
+      }).then(function () {
+        var note = document.getElementById("form-success");
+        if (note) note.classList.add("show");
+        form.reset();
+        if (btn) { btn.textContent = 'Send Enquiry'; btn.disabled = false; }
+      }, function () {
+        if (btn) { btn.textContent = 'Send Enquiry'; btn.disabled = false; }
+        alert('Something went wrong. Please call us on 020 7349 6666 or email enquiries@cowanandrutter.co.uk');
+      });
     });
   }
 
