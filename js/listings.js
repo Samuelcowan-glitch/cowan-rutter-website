@@ -4,6 +4,9 @@
 (function () {
 
   function img(p, w, h) {
+    if (!p) p = 'photo-1497366216548-37526070297c';
+    // A full URL (e.g. a photo uploaded in the database) is used as-is.
+    if (/^https?:\/\//.test(p)) return p;
     return 'https://images.unsplash.com/' + p + '?auto=format&fit=crop&w=' + (w || 900) + '&h=' + (h || 640) + '&q=80';
   }
   var EX = ['photo-1497366216548-37526070297c','photo-1497366412874-3415097a27e7','photo-1497366754035-f200968a6e72','photo-1497366811353-6870744d04b2'];
@@ -275,7 +278,17 @@
     return l.beds + ' bed · ' + l.baths + ' bath · ' + Number(l.sqft).toLocaleString('en-GB') + ' sq ft';
   }
 
-  function gallery(l) { return [img(l.photo, 1100, 760), img(EX[0], 1100, 760), img(EX[1], 1100, 760), img(EX[2], 1100, 760)]; }
+  // Real uploaded photos (from the DB) take priority; otherwise fall back to
+  // the placeholder photo plus a few stock examples.
+  function gallery(l) {
+    if (l.photos && l.photos.length) return l.photos.map(function (u) { return img(u, 1100, 760); });
+    return [img(l.photo, 1100, 760), img(EX[0], 1100, 760), img(EX[1], 1100, 760), img(EX[2], 1100, 760)];
+  }
+  // Cover image for cards: first uploaded photo, else the placeholder.
+  function cover(l, w, h) {
+    if (l.photos && l.photos.length) return img(l.photos[0], w, h);
+    return img(l.photo, w, h);
+  }
   function annual(l) { return l.priceUnit === 'pcm' ? l.price * 12 : l.price; }
 
   function filter(list, f) {
@@ -338,7 +351,7 @@
   window.CR = {
     img: img, cap: cap, formatPrice: formatPrice,
     statusLabel: statusLabel, statusBadge: statusBadge,
-    metaText: metaText, gallery: gallery, annual: annual,
+    metaText: metaText, gallery: gallery, cover: cover, annual: annual,
     filter: filter, sort: sort,
     typeOptions: [
       { value:'all', label:'Any type' }, { value:'Apartment', label:'Apartment' },

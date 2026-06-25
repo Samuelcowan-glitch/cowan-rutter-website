@@ -104,7 +104,7 @@ els.status.addEventListener('change', function () { state.status = this.value; s
     var fav = !!state.favs[l.id];
     return '<article class="ps-card" data-id="'+l.id+'">'
       +'<div class="ps-card-media">'
-        +'<img src="'+CR.img(l.photo,760,560)+'" alt="'+esc(l.title)+'" onerror="this.style.opacity=0">'
+        +'<img src="'+CR.cover(l,760,560)+'" alt="'+esc(l.title)+'" onerror="this.style.opacity=0">'
         +'<div class="ps-badges">'+CR.statusBadge(l)+(l.featured?'<span class="ps-badge ps-badge--featured">Featured</span>':'')+'</div>'
         +'<button class="ps-fav'+(fav?' is-fav':'')+'" data-fav="'+l.id+'" aria-label="Save property">'+(fav?'♥':'♡')+'</button>'
       +'</div>'
@@ -181,9 +181,12 @@ els.status.addEventListener('change', function () { state.status = this.value; s
     els.panel.innerHTML =
       '<div class="ps-panel-backdrop" data-close></div>'
       +'<aside class="ps-panel-sheet" role="dialog" aria-modal="true">'
-        +'<div class="ps-panel-media"><img src="'+CR.gallery(l)[0]+'" alt="'+esc(l.title)+'" onerror="this.style.opacity=0">'
+        +'<div class="ps-panel-media"><img class="ps-gallery-main" src="'+CR.gallery(l)[0]+'" alt="'+esc(l.title)+'" onerror="this.style.opacity=0">'
           +CR.statusBadge(l)
           +'<button class="ps-panel-close" data-close aria-label="Close">&times;</button></div>'
+        +(CR.gallery(l).length>1
+          ? '<div class="ps-gallery-thumbs">'+CR.gallery(l).map(function(u,i){return '<button type="button" class="ps-gallery-thumb'+(i===0?' is-active':'')+'" data-gimg="'+u+'"><img src="'+u+'" alt="" onerror="this.style.opacity=0"></button>';}).join('')+'</div>'
+          : '')
         +'<div class="ps-panel-body">'
           +'<div class="ps-panel-price">'+CR.formatPrice(l)+'</div>'
           +'<div class="ps-panel-title">'+esc(l.title)+'</div>'
@@ -250,6 +253,15 @@ els.status.addEventListener('change', function () { state.status = this.value; s
     els.panel.hidden = false;
     document.body.style.overflow = 'hidden';
     Array.prototype.forEach.call(els.panel.querySelectorAll('[data-close]'),function(x){x.addEventListener('click',closeQuick);});
+    // Gallery: clicking a thumbnail swaps the main image.
+    var galleryMain = els.panel.querySelector('.ps-gallery-main');
+    Array.prototype.forEach.call(els.panel.querySelectorAll('.ps-gallery-thumb'),function(t){
+      t.addEventListener('click',function(){
+        if (galleryMain) galleryMain.src = t.dataset.gimg;
+        Array.prototype.forEach.call(els.panel.querySelectorAll('.ps-gallery-thumb'),function(o){o.classList.remove('is-active');});
+        t.classList.add('is-active');
+      });
+    });
     var favBtn = els.panel.querySelector('#ps-panel-fav');
     if (favBtn) favBtn.addEventListener('click',function(){toggleFav(id);});
     var viewForm = els.panel.querySelector('#ps-view-form');

@@ -99,6 +99,10 @@
 .ps-panel-media { position: relative; height: 300px; flex: none; background: linear-gradient(135deg, #1c3160, #0e1f44); overflow: hidden; }
 .ps-panel-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .ps-panel-media .ps-badge { position: absolute; top: 18px; left: 18px; font-size: .62rem; padding: 7px 12px; }
+.ps-gallery-thumbs { flex: none; display: flex; gap: 8px; padding: 10px 14px; overflow-x: auto; background: #fff; border-bottom: 1px solid rgba(14,31,68,.08); }
+.ps-gallery-thumb { flex: none; width: 72px; height: 54px; padding: 0; border: 2px solid transparent; border-radius: 6px; overflow: hidden; cursor: pointer; background: #eef1f6; }
+.ps-gallery-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ps-gallery-thumb.is-active { border-color: var(--ink, #0e1f44); }
 .ps-panel-close { position: absolute; top: 16px; right: 16px; width: 40px; height: 40px; border-radius: 50%; border: none; background: rgba(255,255,255,.92); color: var(--ink, #0e1f44); font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; line-height: 1; }
 .ps-panel-body { padding: 28px 30px; overflow-y: auto; flex: 1; }
 .ps-panel-price { font-family: var(--serif, "Cormorant Garamond", serif); font-size: 2rem; color: var(--ink, #0e1f44); line-height: 1.05; }
