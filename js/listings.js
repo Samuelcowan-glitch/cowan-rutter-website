@@ -305,6 +305,7 @@
         }
       } else {
         if (f.type && f.type !== 'all' && l.type !== f.type) return false;
+        if (f.beds && f.beds !== 'all' && !(Number(l.beds) >= Number(f.beds))) return false;
         if (f.price && f.price !== 'all') {
           var p = l.price, pu = l.priceUnit;
           if (f.price === 's-0-1m'   && !(pu === 'sale' && p <= 1000000))              return false;
@@ -354,9 +355,14 @@
     metaText: metaText, gallery: gallery, cover: cover, annual: annual,
     filter: filter, sort: sort,
     typeOptions: [
-      { value:'all', label:'Any type' }, { value:'Apartment', label:'Apartment' },
-      { value:'Townhouse', label:'Townhouse' }, { value:'Mews House', label:'Mews House' },
-      { value:'Garden Flat', label:'Garden Flat' }, { value:'Flat', label:'Flat' }
+      { value:'all', label:'Any type' }, { value:'Detached', label:'Detached' },
+      { value:'Semi-Detached', label:'Semi-Detached' }, { value:'Terraced', label:'Terraced' },
+      { value:'Apartment', label:'Apartment' }
+    ],
+    bedOptions: [
+      { value:'all', label:'Any beds' }, { value:'1', label:'1+ beds' },
+      { value:'2', label:'2+ beds' }, { value:'3', label:'3+ beds' },
+      { value:'4', label:'4+ beds' }, { value:'5', label:'5+ beds' }
     ],
     useOptions: [
       { value:'all', label:'Any use' }, { value:'retail', label:'Retail' },

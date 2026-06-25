@@ -7,11 +7,11 @@
   if (!CR || !DATA) { console.warn('[property-search] listings.js must load before property-search.js'); return; }
 
   var FAV_KEY = 'cr-fav';
-  var state = { category:'commercial', status:'all', type:'all', use:'all', price:'all', size:'all', sort:'featured', view:'grid', favs:loadFavs(), quickId:null };
+  var state = { category:'commercial', status:'all', type:'all', beds:'all', use:'all', price:'all', size:'all', sort:'featured', view:'grid', favs:loadFavs(), quickId:null };
 
   var $ = function (s) { return document.querySelector(s); };
   var els = {
-    cat:$('#ps-cat'), status:$('#ps-status'), type:$('#ps-type'), price:$('#ps-price'),
+    cat:$('#ps-cat'), status:$('#ps-status'), type:$('#ps-type'), beds:$('#ps-beds'), price:$('#ps-price'),
     use:$('#ps-use'), size:$('#ps-size'), sort:$('#ps-sort'), view:$('#ps-view'),
     count:$('#ps-count'), countLabel:$('#ps-count-label'), chips:$('#ps-chips'), clear:$('#ps-clear'),
     grid:$('#ps-grid'), mapbox:$('#ps-mapbox'), map:$('#ps-map'), mapcount:$('#ps-mapcount'),
@@ -24,7 +24,7 @@
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
   function find(arr, v) { for (var i = 0; i < arr.length; i++) if (arr[i].value === v) return arr[i]; return null; }
   function priceOpts() { return state.status === 'let' ? CR.priceLetOptions : CR.priceSaleOptions; }
-  function results() { return CR.sort(CR.filter(DATA, {category:state.category,status:state.status,type:state.type,use:state.use,price:state.price,size:state.size}), state.sort); }
+  function results() { return CR.sort(CR.filter(DATA, {category:state.category,status:state.status,type:state.type,beds:state.beds,use:state.use,price:state.price,size:state.size}), state.sort); }
 
   function fillSelect(el, opts, val) { el.innerHTML = opts.map(function (o) { return '<option value="'+o.value+'">'+esc(o.label)+'</option>'; }).join(''); el.value = val; }
   function buildSeg(el, items) { el.innerHTML = items.map(function (it) { return '<button type="button" data-val="'+it.val+'">'+esc(it.label)+'</button>'; }).join(''); }
@@ -34,6 +34,7 @@
   buildSeg(els.cat, [{val:'residential',label:'Residential'},{val:'commercial',label:'Commercial'}]);
   fillSelect(els.status, CR.statusOptions, state.status);
   fillSelect(els.type, CR.typeOptions, state.type);
+  fillSelect(els.beds, CR.bedOptions, state.beds);
   fillSelect(els.price, priceOpts(), state.price);
   fillSelect(els.use, CR.useOptions, state.use);
   fillSelect(els.size, CR.sizeOptions, state.size);
@@ -43,6 +44,7 @@
   els.cat.addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) setCat(b.dataset.val); });
 els.status.addEventListener('change', function () { state.status = this.value; state.price = 'all'; fillSelect(els.price, priceOpts(), 'all'); render(); });
   els.type.addEventListener('change', function () { state.type = this.value; render(); });
+  els.beds.addEventListener('change', function () { state.beds = this.value; render(); });
   els.price.addEventListener('change', function () { state.price = this.value; render(); });
   els.use.addEventListener('change', function () { state.use = this.value; render(); });
   els.size.addEventListener('change', function () { state.size = this.value; render(); });
@@ -59,13 +61,13 @@ els.status.addEventListener('change', function () { state.status = this.value; s
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && els.panel && !els.panel.hidden) closeQuick(); });
 
   function setCat(val) {
-    state.category = val; state.type = 'all'; state.use = 'all'; state.price = 'all'; state.size = 'all';
-    els.type.value = 'all'; els.use.value = 'all'; els.price.value = 'all'; els.size.value = 'all';
+    state.category = val; state.type = 'all'; state.beds = 'all'; state.use = 'all'; state.price = 'all'; state.size = 'all';
+    els.type.value = 'all'; els.beds.value = 'all'; els.use.value = 'all'; els.price.value = 'all'; els.size.value = 'all';
     render();
   }
   function clearAll() {
-    state.category = 'commercial'; state.status = 'all'; state.type = 'all'; state.use = 'all'; state.price = 'all'; state.size = 'all';
-    els.status.value = 'all'; els.type.value = 'all'; els.use.value = 'all'; els.price.value = 'all'; els.size.value = 'all';
+    state.category = 'commercial'; state.status = 'all'; state.type = 'all'; state.beds = 'all'; state.use = 'all'; state.price = 'all'; state.size = 'all';
+    els.status.value = 'all'; els.type.value = 'all'; els.beds.value = 'all'; els.use.value = 'all'; els.price.value = 'all'; els.size.value = 'all';
     render();
   }
   function toggleFav(id) { if (state.favs[id]) delete state.favs[id]; else state.favs[id] = true; saveFavs(); render(); if (state.quickId === id) renderPanelFav(); }
@@ -80,7 +82,7 @@ els.status.addEventListener('change', function () { state.status = this.value; s
     els.countLabel.textContent = list.length === 1 ? 'property' : 'properties';
     setActive(els.cat, state.category);
     setActive(els.view, state.view);
-    els.status.value = state.status; els.type.value = state.type; els.price.value = state.price;
+    els.status.value = state.status; els.type.value = state.type; els.beds.value = state.beds; els.price.value = state.price;
     els.use.value = state.use; els.size.value = state.size; els.sort.value = state.sort;
     renderChips();
 
@@ -91,6 +93,7 @@ els.status.addEventListener('change', function () { state.status = this.value; s
     var c = [], isCom = state.category === 'commercial';
     if (state.status !== 'all') c.push({label: state.status === 'sale' ? 'For sale' : 'To let', clear:function(){state.status='all';render();}});
     if (!isCom && state.type !== 'all') c.push({label:state.type, clear:function(){state.type='all';render();}});
+    if (!isCom && state.beds !== 'all') c.push({label:state.beds+'+ beds', clear:function(){state.beds='all';render();}});
     if (!isCom && state.price !== 'all') { var po=find(priceOpts(),state.price); if(po) c.push({label:po.label,clear:function(){state.price='all';render();}}); }
     if (isCom && state.use !== 'all') c.push({label:CR.cap(state.use), clear:function(){state.use='all';render();}});
     if (isCom && state.size !== 'all') { var so=find(CR.sizeOptions,state.size); if(so) c.push({label:so.label,clear:function(){state.size='all';render();}}); }

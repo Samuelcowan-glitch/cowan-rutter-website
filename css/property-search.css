@@ -27,6 +27,7 @@
 .ps-field { flex: 1; min-width: 150px; }
 .ps-field > label { display: block; font-family: var(--sans, "Jost", sans-serif); font-size: .6rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted, #5b6675); margin-bottom: 8px; }
 .ps-field.ps-field-cat { flex: 0 0 auto; }
+.ps-advlabel { flex: 1 1 100%; font-family: var(--sans, "Jost", sans-serif); font-size: .6rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted, #5b6675); margin: 4px 0 -4px; padding-top: 16px; border-top: 1px solid rgba(14,31,68,.10); }
 
 /* selects */
 .ps-select { position: relative; }
