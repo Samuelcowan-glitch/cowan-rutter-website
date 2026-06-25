@@ -7,7 +7,7 @@
   if (!CR || !DATA) { console.warn('[property-search] listings.js must load before property-search.js'); return; }
 
   var FAV_KEY = 'cr-fav';
-  var state = { category:'all', status:'all', type:'all', use:'all', price:'all', size:'all', sort:'featured', view:'grid', favs:loadFavs(), quickId:null };
+  var state = { category:'commercial', status:'all', type:'all', use:'all', price:'all', size:'all', sort:'featured', view:'grid', favs:loadFavs(), quickId:null };
 
   var $ = function (s) { return document.querySelector(s); };
   var els = {
@@ -31,7 +31,7 @@
   function setActive(seg, val) { if (!seg) return; Array.prototype.forEach.call(seg.querySelectorAll('button'), function (b) { b.classList.toggle('is-active', b.dataset.val === val); }); }
 
   /* init controls */
-  buildSeg(els.cat, [{val:'all',label:'All'},{val:'residential',label:'Residential'},{val:'commercial',label:'Commercial'}]);
+  buildSeg(els.cat, [{val:'residential',label:'Residential'},{val:'commercial',label:'Commercial'}]);
   fillSelect(els.status, CR.statusOptions, state.status);
   fillSelect(els.type, CR.typeOptions, state.type);
   fillSelect(els.price, priceOpts(), state.price);
@@ -64,7 +64,7 @@ els.status.addEventListener('change', function () { state.status = this.value; s
     render();
   }
   function clearAll() {
-    state.category = 'all'; state.status = 'all'; state.type = 'all'; state.use = 'all'; state.price = 'all'; state.size = 'all';
+    state.category = 'commercial'; state.status = 'all'; state.type = 'all'; state.use = 'all'; state.price = 'all'; state.size = 'all';
     els.status.value = 'all'; els.type.value = 'all'; els.use.value = 'all'; els.price.value = 'all'; els.size.value = 'all';
     render();
   }
@@ -89,7 +89,6 @@ els.status.addEventListener('change', function () { state.status = this.value; s
 
   function renderChips() {
     var c = [], isCom = state.category === 'commercial';
-    if (state.category !== 'all') c.push({label: isCom ? 'Commercial' : 'Residential', clear:function(){setCat('all');}});
     if (state.status !== 'all') c.push({label: state.status === 'sale' ? 'For sale' : 'To let', clear:function(){state.status='all';render();}});
     if (!isCom && state.type !== 'all') c.push({label:state.type, clear:function(){state.type='all';render();}});
     if (!isCom && state.price !== 'all') { var po=find(priceOpts(),state.price); if(po) c.push({label:po.label,clear:function(){state.price='all';render();}}); }
