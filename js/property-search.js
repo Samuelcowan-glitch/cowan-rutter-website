@@ -99,24 +99,40 @@ els.status.addEventListener('change', function () { state.status = this.value; s
   }
 
   // Auto-rotate the cover image of any card that has multiple real photos.
+  // Uses a true crossfade — a fading overlay image — so the change is smooth
+  // rather than a flicker/dim-and-snap.
   var cardRotTimer = null;
   function startCardRotation() {
     if (cardRotTimer) { clearInterval(cardRotTimer); cardRotTimer = null; }
-    var imgs = Array.prototype.slice.call(els.grid.querySelectorAll('.ps-card-media img[data-rotate]'));
-    if (!imgs.length) return;
-    var sets = imgs.map(function (img) {
+    var sets = [];
+    Array.prototype.forEach.call(els.grid.querySelectorAll('.ps-card-media img[data-rotate]'), function (img) {
       var photos = img.getAttribute('data-rotate').split('|');
-      photos.forEach(function (u) { var im = new Image(); im.src = u; });   // preload to avoid flicker
-      return { img: img, photos: photos, i: 0 };
+      if (photos.length < 2) return;
+      photos.forEach(function (u) { var im = new Image(); im.src = u; });   // preload
+      sets.push({ media: img.parentNode, base: img, photos: photos, i: 0 });
     });
+    if (!sets.length) return;
     cardRotTimer = setInterval(function () {
       sets.forEach(function (s) {
         s.i = (s.i + 1) % s.photos.length;
         var next = s.photos[s.i];
-        s.img.style.opacity = '.4';
-        setTimeout(function () { s.img.src = next; s.img.style.opacity = '1'; }, 200);
+        var overlay = document.createElement('img');
+        overlay.className = 'ps-rot-fade';
+        overlay.alt = '';
+        overlay.src = next;
+        s.media.appendChild(overlay);
+        void overlay.offsetWidth;                 // force reflow so the fade-in animates
+        overlay.classList.add('is-in');
+        var committed = false;
+        var commit = function () {
+          if (committed) return; committed = true;
+          s.base.src = next;                      // bake the new image into the base layer
+          if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+        };
+        overlay.addEventListener('transitionend', function (e) { if (e.propertyName === 'opacity') commit(); });
+        setTimeout(commit, 1200);                 // fallback if transitionend doesn't fire
       });
-    }, 3500);
+    }, 4500);
   }
 
   function renderChips() {
