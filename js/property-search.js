@@ -22,6 +22,14 @@
   function loadFavs() { try { return JSON.parse(localStorage.getItem(FAV_KEY)) || {}; } catch (e) { return {}; } }
   function saveFavs() { try { localStorage.setItem(FAV_KEY, JSON.stringify(state.favs)); } catch (e) {} }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  // Sub-line under the title. When the address is identical to the title
+  // (listings with no separate unit name), don't repeat it — show just the
+  // postcode. Otherwise show the address plus postcode.
+  function addrLine(l) {
+    var pc = l.postcode || '';
+    if (l.address && l.address !== l.title) return esc(l.address) + (pc ? ', ' + pc : '');
+    return esc(pc);
+  }
   function find(arr, v) { for (var i = 0; i < arr.length; i++) if (arr[i].value === v) return arr[i]; return null; }
   function priceOpts() { return state.status === 'let' ? CR.priceLetOptions : CR.priceSaleOptions; }
   function results() { return CR.sort(CR.filter(DATA, {category:state.category,status:state.status,type:state.type,beds:state.beds,use:state.use,price:state.price,size:state.size}), state.sort); }
@@ -113,7 +121,7 @@ els.status.addEventListener('change', function () { state.status = this.value; s
       +'<div class="ps-card-body">'
         +'<div class="ps-price">'+CR.formatPrice(l)+'</div>'
         +'<div class="ps-title">'+esc(l.title)+'</div>'
-        +'<div class="ps-addr">'+esc(l.address)+', '+l.postcode+'</div>'
+        +'<div class="ps-addr">'+addrLine(l)+'</div>'
         +'<div class="ps-rule"></div>'
         +'<div class="ps-meta">'+CR.metaText(l)+'</div>'
       +'</div></article>';
@@ -173,8 +181,22 @@ els.status.addEventListener('change', function () { state.status = this.value; s
 
   /* quick-view slide-over */
   function facts(l) {
-    if (l.category === 'commercial') return [['Type',l.type],['Use',CR.cap(l.use)],['Floor area',Number(l.sqft).toLocaleString('en-GB')+' sq ft'],['Status',CR.statusLabel(l)],['Area',l.area+', '+l.postcode]];
-    return [['Type',l.type],['Bedrooms',l.beds],['Bathrooms',l.baths],['Floor area',Number(l.sqft).toLocaleString('en-GB')+' sq ft'],['Area',l.area+', '+l.postcode]];
+    var isCom = l.category === 'commercial', isSale = l.status === 'sale';
+    var sqft = Number(l.sqft).toLocaleString('en-GB');
+    var size = l.sqft ? (sqft + ' sq ft' + (l.measurement ? ' (' + l.measurement + ')' : '')) : null;
+    var rows = [];
+    if (isCom) {
+      rows.push(['Type', l.type], ['Use', CR.cap(l.use)], ['Floor area', size]);
+      if (l.pricePerSqft) rows.push(['Rent / sq ft', '£' + Number(l.pricePerSqft).toLocaleString('en-GB') + ' pa']);
+      if (isSale && l.yield)  rows.push(['Initial yield', l.yield + '%']);
+      if (isSale && l.tenure) rows.push(['Tenure', l.tenure]);
+    } else {
+      rows.push(['Type', l.type], ['Bedrooms', l.beds], ['Bathrooms', l.baths], ['Floor area', size]);
+      if (isSale && l.yield)  rows.push(['Gross initial yield', l.yield + '%']);
+      if (isSale && l.tenure) rows.push(['Tenure', l.tenure]);
+    }
+    rows.push(['Status', CR.statusLabel(l)], ['Area', l.area + ', ' + l.postcode]);
+    return rows.filter(function (r) { return r[1] != null && r[1] !== '' && String(r[1]) !== 'null'; });
   }
   function openQuick(id) {
     var l = null; for(var i=0;i<DATA.length;i++){if(DATA[i].id===id){l=DATA[i];break;}} if(!l) return;
@@ -194,7 +216,9 @@ els.status.addEventListener('change', function () { state.status = this.value; s
           +'<div class="ps-panel-title">'+esc(l.title)+'</div>'
           +'<div class="ps-panel-addr">'+esc(l.address)+', '+l.postcode+'</div>'
           +'<div class="ps-facts">'+facts(l).map(function(f){return '<div class="ps-fact"><dt>'+esc(f[0])+'</dt><dd>'+esc(String(f[1]))+'</dd></div>';}).join('')+'</div>'
-          +'<p class="ps-blurb">'+esc(l.blurb)+'</p>'
+          +(l.keyTerms ? '<div class="ps-keyterms"><span>Key terms</span> '+esc(l.keyTerms)+'</div>' : '')
+          +(l.blurb ? '<p class="ps-blurb">'+esc(l.blurb)+'</p>' : '')
+          +(l.locationText ? '<div class="ps-location"><h4>Location</h4><p>'+esc(l.locationText)+'</p></div>' : '')
           +'<div class="ps-panel-actions" style="flex-direction:column;gap:0;">'
           +'<form id="ps-view-form" style="width:100%;">'
             +'<input type="hidden" name="property" value="'+esc(l.title)+' — '+esc(l.address)+', '+esc(l.postcode)+'">'
