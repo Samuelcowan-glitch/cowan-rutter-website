@@ -248,6 +248,12 @@ els.status.addEventListener('change', function () { state.status = this.value; s
           +(l.keyTerms ? '<div class="ps-keyterms"><span>Key terms</span> '+esc(l.keyTerms)+'</div>' : '')
           +(l.blurb ? '<p class="ps-blurb">'+esc(l.blurb)+'</p>' : '')
           +(l.locationText ? '<div class="ps-location"><h4>Location</h4><p>'+esc(l.locationText)+'</p></div>' : '')
+          +((l.brochureUrl || l.floorPlanUrl)
+            ? '<div class="ps-docs">'
+              +(l.brochureUrl  ? '<a class="ps-doc" href="'+l.brochureUrl+'" target="_blank" rel="noopener">📄 Download brochure</a>' : '')
+              +(l.floorPlanUrl ? '<a class="ps-doc" href="'+l.floorPlanUrl+'" target="_blank" rel="noopener">🗺️ Floor plan</a>' : '')
+              +'</div>'
+            : '')
           +'<div class="ps-panel-actions" style="flex-direction:column;gap:0;">'
           +'<form id="ps-view-form" style="width:100%;">'
             +'<input type="hidden" name="property" value="'+esc(l.title)+' — '+esc(l.address)+', '+esc(l.postcode)+'">'
