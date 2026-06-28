@@ -95,6 +95,28 @@ els.status.addEventListener('change', function () { state.status = this.value; s
     renderChips();
 
     els.grid.innerHTML = list.length ? list.map(cardHTML).join('') : emptyHTML();
+    startCardRotation();
+  }
+
+  // Auto-rotate the cover image of any card that has multiple real photos.
+  var cardRotTimer = null;
+  function startCardRotation() {
+    if (cardRotTimer) { clearInterval(cardRotTimer); cardRotTimer = null; }
+    var imgs = Array.prototype.slice.call(els.grid.querySelectorAll('.ps-card-media img[data-rotate]'));
+    if (!imgs.length) return;
+    var sets = imgs.map(function (img) {
+      var photos = img.getAttribute('data-rotate').split('|');
+      photos.forEach(function (u) { var im = new Image(); im.src = u; });   // preload to avoid flicker
+      return { img: img, photos: photos, i: 0 };
+    });
+    cardRotTimer = setInterval(function () {
+      sets.forEach(function (s) {
+        s.i = (s.i + 1) % s.photos.length;
+        var next = s.photos[s.i];
+        s.img.style.opacity = '.4';
+        setTimeout(function () { s.img.src = next; s.img.style.opacity = '1'; }, 200);
+      });
+    }, 3500);
   }
 
   function renderChips() {
@@ -112,9 +134,11 @@ els.status.addEventListener('change', function () { state.status = this.value; s
 
   function cardHTML(l) {
     var fav = !!state.favs[l.id];
+    // Cards with 2+ real uploaded photos auto-rotate their cover (see startCardRotation).
+    var rot = (l.photos && l.photos.length > 1) ? ' data-rotate="'+l.photos.map(esc).join('|')+'"' : '';
     return '<article class="ps-card" data-id="'+l.id+'">'
       +'<div class="ps-card-media">'
-        +'<img src="'+CR.cover(l,760,560)+'" alt="'+esc(l.title)+'" onerror="this.style.opacity=0">'
+        +'<img'+rot+' src="'+CR.cover(l,760,560)+'" alt="'+esc(l.title)+'" onerror="this.style.opacity=0">'
         +'<div class="ps-badges">'+CR.statusBadge(l)+(l.featured?'<span class="ps-badge ps-badge--featured">Featured</span>':'')+'</div>'
         +'<button class="ps-fav'+(fav?' is-fav':'')+'" data-fav="'+l.id+'" aria-label="Save property">'+(fav?'♥':'♡')+'</button>'
       +'</div>'
@@ -202,14 +226,16 @@ els.status.addEventListener('change', function () { state.status = this.value; s
     var l = null; for(var i=0;i<DATA.length;i++){if(DATA[i].id===id){l=DATA[i];break;}} if(!l) return;
     state.quickId = id;
     var fav = !!state.favs[id];
+    var G = CR.gallery(l);
     els.panel.innerHTML =
       '<div class="ps-panel-backdrop" data-close></div>'
       +'<aside class="ps-panel-sheet" role="dialog" aria-modal="true">'
-        +'<div class="ps-panel-media"><img class="ps-gallery-main" src="'+CR.gallery(l)[0]+'" alt="'+esc(l.title)+'" onerror="this.style.opacity=0">'
+        +'<div class="ps-panel-media"><img class="ps-gallery-main" src="'+G[0]+'" alt="'+esc(l.title)+'" onerror="this.style.opacity=0">'
           +CR.statusBadge(l)
+          +(G.length>1 ? '<button type="button" class="ps-gallery-nav ps-gallery-prev" aria-label="Previous photo">&#8249;</button><button type="button" class="ps-gallery-nav ps-gallery-next" aria-label="Next photo">&#8250;</button>' : '')
           +'<button class="ps-panel-close" data-close aria-label="Close">&times;</button></div>'
-        +(CR.gallery(l).length>1
-          ? '<div class="ps-gallery-thumbs">'+CR.gallery(l).map(function(u,i){return '<button type="button" class="ps-gallery-thumb'+(i===0?' is-active':'')+'" data-gimg="'+u+'"><img src="'+u+'" alt="" onerror="this.style.opacity=0"></button>';}).join('')+'</div>'
+        +(G.length>1
+          ? '<div class="ps-gallery-thumbs">'+G.map(function(u,i){return '<button type="button" class="ps-gallery-thumb'+(i===0?' is-active':'')+'" data-gimg="'+u+'"><img src="'+u+'" alt="" onerror="this.style.opacity=0"></button>';}).join('')+'</div>'
           : '')
         +'<div class="ps-panel-body">'
           +'<div class="ps-panel-price">'+CR.formatPrice(l)+'</div>'
@@ -279,15 +305,21 @@ els.status.addEventListener('change', function () { state.status = this.value; s
     els.panel.hidden = false;
     document.body.style.overflow = 'hidden';
     Array.prototype.forEach.call(els.panel.querySelectorAll('[data-close]'),function(x){x.addEventListener('click',closeQuick);});
-    // Gallery: clicking a thumbnail swaps the main image.
+    // Gallery: thumbnails + prev/next arrows both cycle the main image.
     var galleryMain = els.panel.querySelector('.ps-gallery-main');
-    Array.prototype.forEach.call(els.panel.querySelectorAll('.ps-gallery-thumb'),function(t){
-      t.addEventListener('click',function(){
-        if (galleryMain) galleryMain.src = t.dataset.gimg;
-        Array.prototype.forEach.call(els.panel.querySelectorAll('.ps-gallery-thumb'),function(o){o.classList.remove('is-active');});
-        t.classList.add('is-active');
-      });
-    });
+    var galleryThumbs = Array.prototype.slice.call(els.panel.querySelectorAll('.ps-gallery-thumb'));
+    var galleryIdx = 0;
+    function showGalleryImage(idx) {
+      if (!galleryMain || !G.length) return;
+      galleryIdx = (idx + G.length) % G.length;     // wrap around both ends
+      galleryMain.src = G[galleryIdx];
+      galleryThumbs.forEach(function (o, i) { o.classList.toggle('is-active', i === galleryIdx); });
+    }
+    galleryThumbs.forEach(function (t, i) { t.addEventListener('click', function () { showGalleryImage(i); }); });
+    var gPrev = els.panel.querySelector('.ps-gallery-prev');
+    var gNext = els.panel.querySelector('.ps-gallery-next');
+    if (gPrev) gPrev.addEventListener('click', function () { showGalleryImage(galleryIdx - 1); });
+    if (gNext) gNext.addEventListener('click', function () { showGalleryImage(galleryIdx + 1); });
     var favBtn = els.panel.querySelector('#ps-panel-fav');
     if (favBtn) favBtn.addEventListener('click',function(){toggleFav(id);});
     var viewForm = els.panel.querySelector('#ps-view-form');
