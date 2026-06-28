@@ -212,12 +212,15 @@ els.status.addEventListener('change', function () { state.status = this.value; s
     if (isCom) {
       rows.push(['Type', l.type], ['Use', CR.cap(l.use)], ['Floor area', size]);
       if (l.pricePerSqft) rows.push(['Rent / sq ft', '£' + Number(l.pricePerSqft).toLocaleString('en-GB') + ' pa']);
-      if (isSale && l.yield)  rows.push(['Initial yield', l.yield + '%']);
-      if (isSale && l.tenure) rows.push(['Tenure', l.tenure]);
+      // Vacant-possession sales quote a capital rate (£/sq ft) in place of a yield %.
+      if (isSale && l.yield) rows.push(l.vacantPossession ? ['Cap rate', '£' + Number(l.yield).toLocaleString('en-GB') + ' / sq ft'] : ['Initial yield', l.yield + '%']);
+      var comTenure = l.saleTenure || l.tenure;
+      if (isSale && comTenure) rows.push(['Tenure', comTenure + (/long leasehold/i.test(comTenure) && l.leaseYears ? ' · ' + l.leaseYears + ' yrs remaining' : '')]);
     } else {
       rows.push(['Type', l.type], ['Bedrooms', l.beds], ['Bathrooms', l.baths], ['Floor area', size]);
-      if (isSale && l.yield)  rows.push(['Gross initial yield', l.yield + '%']);
-      if (isSale && l.tenure) rows.push(['Tenure', l.tenure]);
+      if (isSale && l.yield) rows.push(l.vacantPossession ? ['Cap rate', '£' + Number(l.yield).toLocaleString('en-GB') + ' / sq ft'] : ['Gross initial yield', l.yield + '%']);
+      var resTenure = l.saleTenure || l.tenure;
+      if (isSale && resTenure) rows.push(['Tenure', resTenure + (/long leasehold/i.test(resTenure) && l.leaseYears ? ' · ' + l.leaseYears + ' yrs remaining' : '')]);
     }
     rows.push(['Status', CR.statusLabel(l)], ['Area', l.area + ', ' + l.postcode]);
     return rows.filter(function (r) { return r[1] != null && r[1] !== '' && String(r[1]) !== 'null'; });
