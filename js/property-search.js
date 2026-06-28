@@ -214,7 +214,7 @@ els.status.addEventListener('change', function () { state.status = this.value; s
         +'<div class="ps-panel-body">'
           +'<div class="ps-panel-price">'+CR.formatPrice(l)+'</div>'
           +'<div class="ps-panel-title">'+esc(l.title)+'</div>'
-          +'<div class="ps-panel-addr">'+esc(l.address)+', '+l.postcode+'</div>'
+          +'<div class="ps-panel-addr">'+addrLine(l)+'</div>'
           +'<div class="ps-facts">'+facts(l).map(function(f){return '<div class="ps-fact"><dt>'+esc(f[0])+'</dt><dd>'+esc(String(f[1]))+'</dd></div>';}).join('')+'</div>'
           +(l.keyTerms ? '<div class="ps-keyterms"><span>Key terms</span> '+esc(l.keyTerms)+'</div>' : '')
           +(l.blurb ? '<p class="ps-blurb">'+esc(l.blurb)+'</p>' : '')
