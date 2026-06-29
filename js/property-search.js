@@ -226,7 +226,7 @@ els.status.addEventListener('change', function () { state.status = this.value; s
     var size = l.sqft ? (sqft + ' sq ft' + (l.measurement ? ' (' + l.measurement + ')' : '')) : null;
     var rows = [];
     if (isCom) {
-      rows.push(['Type', l.type], ['Use', CR.cap(l.use)], ['Floor area', size]);
+      rows.push(['Type', l.type], ['Floor area', size]);
       if (l.pricePerSqft) rows.push(['Rent / sq ft', '£' + Number(l.pricePerSqft).toLocaleString('en-GB') + ' pa']);
       // Vacant-possession sales quote a capital rate (£/sq ft) in place of a yield %.
       if (isSale && l.yield) rows.push(l.vacantPossession ? ['Cap rate', '£' + Number(l.yield).toLocaleString('en-GB') + ' / sq ft'] : ['Initial yield', l.yield + '%']);
@@ -261,7 +261,7 @@ els.status.addEventListener('change', function () { state.status = this.value; s
           +'<div class="ps-panel-title">'+esc(l.title)+'</div>'
           +'<div class="ps-panel-addr">'+addrLine(l)+'</div>'
           +'<div class="ps-facts">'+facts(l).map(function(f){return '<div class="ps-fact"><dt>'+esc(f[0])+'</dt><dd>'+esc(String(f[1]))+'</dd></div>';}).join('')+'</div>'
-          +(l.keyTerms ? '<div class="ps-keyterms"><span>Key terms</span> '+esc(l.keyTerms)+'</div>' : '')
+          +(l.keyTerms ? '<div class="ps-keyterms"><span>Key terms</span><ul>'+l.keyTerms.split(/[\n·,;|]+/).map(function(t){return t.trim();}).filter(Boolean).map(function(t){return '<li>'+esc(t)+'</li>';}).join('')+'</ul></div>' : '')
           +(l.blurb ? '<p class="ps-blurb">'+esc(l.blurb)+'</p>' : '')
           +(l.locationText ? '<div class="ps-location"><h4>Location</h4><p>'+esc(l.locationText)+'</p></div>' : '')
           +((l.brochureUrl || l.floorPlanUrl)
