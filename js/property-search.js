@@ -230,6 +230,13 @@ els.status.addEventListener('change', function () { state.status = this.value; s
     return area + ', ' + pc;
   }
 
+  function listingSlug(l) {
+    var text = ((l.title || l.address || 'Property') + '-' + l.id).toLowerCase();
+    text = text.replace(/[^\w\s-]/g, '');
+    text = text.replace(/[\s_-]+/g, '-').replace(/^-+|-+$/g, '');
+    return text || 'listing';
+  }
+
 function facts(l) {
     var isCom = l.category === 'commercial', isSale = l.status === 'sale';
     var sqft = Number(l.sqft).toLocaleString('en-GB');
@@ -280,6 +287,7 @@ function facts(l) {
               +(l.floorPlanUrl ? '<a class="ps-doc" href="'+l.floorPlanUrl+'" target="_blank" rel="noopener">🗺️ Floor plan</a>' : '')
               +'</div>'
             : '')
+          +'<div class="ps-docs"><a class="ps-doc" href="/listings/'+listingSlug(l)+'/">🔗 View full details page</a></div>'
           +'<div class="ps-panel-actions" style="flex-direction:column;gap:0;">'
           +'<form id="ps-view-form" style="width:100%;">'
             +'<input type="hidden" name="property" value="'+esc(l.title)+' — '+esc(l.address)+', '+esc(l.postcode)+'">'
