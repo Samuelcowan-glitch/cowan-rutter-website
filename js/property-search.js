@@ -220,7 +220,17 @@ els.status.addEventListener('change', function () { state.status = this.value; s
   }
 
   /* quick-view slide-over */
-  function facts(l) {
+  
+  function areaLine(l) {
+    var area = (l.area || '').trim();
+    var pc = (l.postcode || '').trim();
+    if (!area) return pc;
+    if (!pc) return area;
+    if (area.toLowerCase() === pc.toLowerCase()) return area;
+    return area + ', ' + pc;
+  }
+
+function facts(l) {
     var isCom = l.category === 'commercial', isSale = l.status === 'sale';
     var sqft = Number(l.sqft).toLocaleString('en-GB');
     var size = l.sqft ? (sqft + ' sq ft' + (l.measurement ? ' (' + l.measurement + ')' : '')) : null;
@@ -238,7 +248,7 @@ els.status.addEventListener('change', function () { state.status = this.value; s
       var resTenure = l.saleTenure || l.tenure;
       if (isSale && resTenure) rows.push(['Tenure', resTenure + (/long leasehold/i.test(resTenure) && l.leaseYears ? ' · ' + l.leaseYears + ' yrs remaining' : '')]);
     }
-    rows.push(['Status', CR.statusLabel(l)], ['Area', l.area + ', ' + l.postcode]);
+    rows.push(['Status', CR.statusLabel(l)], ['Area', areaLine(l)]);
     return rows.filter(function (r) { return r[1] != null && r[1] !== '' && String(r[1]) !== 'null'; });
   }
   function openQuick(id) {
