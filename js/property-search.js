@@ -285,6 +285,7 @@ function facts(l) {
             +'<input type="hidden" name="property" value="'+esc(l.title)+' — '+esc(l.address)+', '+esc(l.postcode)+'">'
             +'<input type="hidden" name="transaction" value="'+(l.status||'let')+'">'
             +'<input type="hidden" name="category"    value="'+(l.category||'commercial')+'">'
+            +'<p style="font-size:.82rem;line-height:1.55;color:#3a4560;margin:0 0 14px;">Please provide us with your requirements so we can arrange a viewing or, if this property is no longer suitable, find you the ideal alternative options.</p>'
             +'<div style="display:grid;gap:10px;margin-bottom:14px;">'
               +'<input type="text" name="from_name" placeholder="Your name *" required style="font-family:inherit;font-size:.88rem;padding:11px 14px;border:1px solid rgba(14,31,68,.18);background:#fff;width:100%;">'
               +'<input type="email" name="from_email" placeholder="Your email *" required style="font-family:inherit;font-size:.88rem;padding:11px 14px;border:1px solid rgba(14,31,68,.18);background:#fff;width:100%;">'
