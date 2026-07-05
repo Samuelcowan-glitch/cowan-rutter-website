@@ -224,9 +224,14 @@ els.status.addEventListener('change', function () { state.status = this.value; s
   function areaLine(l) {
     var area = (l.area || '').trim();
     var pc = (l.postcode || '').trim();
+    if (pc && area) {
+      // strip a trailing/embedded postcode so it never repeats the Postcode field
+      var re = new RegExp('\\s*,?\\s*' + pc.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\s*$', 'i');
+      area = area.replace(re, '').trim();
+      if (area.toLowerCase() === pc.toLowerCase()) area = '';
+    }
     if (!area) return pc;
     if (!pc) return area;
-    if (area.toLowerCase() === pc.toLowerCase()) return area;
     return area + ', ' + pc;
   }
 
