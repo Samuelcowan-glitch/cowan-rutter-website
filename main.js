@@ -117,7 +117,7 @@
         if (btn) { btn.textContent = 'Send Enquiry'; btn.disabled = false; }
       }, function () {
         if (btn) { btn.textContent = 'Send Enquiry'; btn.disabled = false; }
-        alert('Something went wrong. Please call us on 020 7349 6666 or email enquiries@cowanandrutter.co.uk');
+        alert('Something went wrong. Please call us on 020 7349 6666 or email bc@cowanandrutter.co.uk');
       });
     });
   }

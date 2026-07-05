@@ -109,7 +109,7 @@ h1, h2, h3, h4 {
 }
 
 .brand { display: flex; flex-direction: column; line-height: 1; }
-.brand-logo { height: 60px; width: auto; display: block; transform: scaleX(1.15); transform-origin: left center; }
+.brand-logo { height: 82px; width: auto; display: block; transform: scaleX(1.15); transform-origin: left center; }
 .brand-name {
   font-family: var(--serif);
   font-size: 1.55rem;
@@ -218,7 +218,7 @@ h1, h2, h3, h4 {
   100% { background-position: -40% 0; }
 }
 
-.hero-content { position: relative; z-index: 3; max-width: 820px; }
+.hero-content { position: relative; z-index: 3; max-width: 820px; transform: translateY(60px); }
 .hero h1 {
   color: var(--white);
   font-size: clamp(2.2rem, 4.8vw, 4.2rem);
