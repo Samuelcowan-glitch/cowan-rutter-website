@@ -10,6 +10,7 @@
 
 .ps-page { background: #fff; }
 .ps-badge--uo { background: var(--ink, #0e1f44); }
+.ps-badge--sold { background: var(--muted, #5b6675); }
 
 /* ---- Immersive hero (image + navy overlay), allows for fixed .site-header ---- */
 .ps-hero { position: relative; overflow: hidden; background: var(--ink, #0e1f44); padding: 200px 0 150px; }

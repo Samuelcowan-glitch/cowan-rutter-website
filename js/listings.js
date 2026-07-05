@@ -263,14 +263,28 @@
     return n;
   }
 
+  // Normalise listingStatus — the two admin forms send it differently
+  // ("let-agreed" vs "Let Agreed"), so lowercase and hyphenate before matching.
+  function normStatus(l) {
+    return String(l.listingStatus || 'available').toLowerCase().replace(/\s+/g, '-');
+  }
+
   function statusLabel(l) {
-    if (l.listingStatus === 'under-offer') return 'Under Offer';
-    return l.status === 'sale' ? 'For Sale' : 'To Let';
+    switch (normStatus(l)) {
+      case 'under-offer': return 'Under Offer';
+      case 'let-agreed':  return 'Let Agreed';
+      case 'sold':        return 'Sold';
+      case 'sold-stc':    return 'Sold STC';
+      case 'withdrawn':   return 'Withdrawn';
+      default:            return l.status === 'sale' ? 'For Sale' : 'To Let';
+    }
   }
 
   function statusBadge(l) {
-    var cls = l.listingStatus === 'under-offer' ? 'ps-badge ps-badge--uo' : 'ps-badge';
-    return '<span class="' + cls + '">' + statusLabel(l) + '</span>';
+    var s = normStatus(l), mod = '';
+    if (s === 'under-offer') mod = ' ps-badge--uo';
+    else if (s === 'let-agreed' || s === 'sold' || s === 'sold-stc' || s === 'withdrawn') mod = ' ps-badge--sold';
+    return '<span class="ps-badge' + mod + '">' + statusLabel(l) + '</span>';
   }
 
   function metaText(l) {
