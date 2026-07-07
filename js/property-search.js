@@ -284,7 +284,7 @@ function facts(l) {
           +'<div class="ps-panel-addr">'+addrLine(l)+'</div>'
           +'<div class="ps-facts">'+facts(l).map(function(f){return '<div class="ps-fact"><dt>'+esc(f[0])+'</dt><dd>'+esc(String(f[1]))+'</dd></div>';}).join('')+'</div>'
           +(l.keyTerms ? '<div class="ps-keyterms"><span>Key terms</span><ul>'+l.keyTerms.split(/[\n·,;|]+/).map(function(t){return t.trim();}).filter(Boolean).map(function(t){return '<li>'+esc(t)+'</li>';}).join('')+'</ul></div>' : '')
-          +(l.blurb ? '<p class="ps-blurb">'+esc(l.blurb)+'</p>' : '')
+          +(l.blurb ? '<div class="ps-location"><h4>Description</h4><p>'+esc(l.blurb)+'</p></div>' : '')
           +(l.locationText ? '<div class="ps-location"><h4>Location</h4><p>'+esc(l.locationText)+'</p></div>' : '')
           +((l.brochureUrl || l.floorPlanUrl)
             ? '<div class="ps-docs">'

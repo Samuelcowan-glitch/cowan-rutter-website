@@ -128,7 +128,7 @@
 .ps-keyterms ul { margin: 0; padding-left: 18px; }
 .ps-keyterms li { margin: 3px 0; }
 .ps-location { margin-top: 20px; }
-.ps-location h4 { margin: 0 0 6px; font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted, #5b6675); font-weight: 500; }
+.ps-location h4 { margin: 0 0 6px; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink, #0e1f44); font-weight: 600; }
 .ps-location p { margin: 0; font-size: .95rem; color: var(--muted, #5b6675); line-height: 1.75; }
 /* downloadable documents (brochure / floor plan) */
 .ps-docs { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }

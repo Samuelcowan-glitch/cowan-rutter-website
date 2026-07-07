@@ -80,7 +80,7 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../../css/styles.css" />
   <link rel="stylesheet" href="../../css/property-search.css" />
   <script type="application/ld+json">{jsonld}</script>
@@ -194,18 +194,21 @@ def build_page(listing):
 
     facts_html = build_facts(listing)
 
-    blurb_html = f'<p style="line-height:1.7;margin-top:8px">{esc(blurb_plain)}</p>' if blurb_plain else ""
+    # Bold section headings (Jost 600, spaced uppercase — matches the search-panel style)
+    h3_style = "font-size:.85rem;font-family:var(--sans);font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--ink);margin:0 0 8px"
+
+    blurb_html = f'<div style="margin-top:20px"><h3 style="{h3_style}">Description</h3><p style="line-height:1.7;margin:0">{esc(blurb_plain)}</p></div>' if blurb_plain else ""
 
     key_terms = listing.get("keyTerms") or ""
     key_terms_html = ""
     if key_terms.strip():
         items = "".join(f"<li>{esc(t.strip())}</li>" for t in re.split(r"[\r\n·]+", key_terms) if t.strip())
-        key_terms_html = f'<div style="margin-top:20px"><h3 style="font-size:1rem">Key Terms</h3><ul style="padding-left:20px">{items}</ul></div>'
+        key_terms_html = f'<div style="margin-top:20px"><h3 style="{h3_style}">Key Terms</h3><ul style="padding-left:20px;margin:0">{items}</ul></div>'
 
     location_text = listing.get("locationText") or ""
     location_html = ""
     if location_text.strip():
-        location_html = f'<div style="margin-top:20px"><h3 style="font-size:1rem">Location</h3><p style="line-height:1.7">{esc(location_text.strip())}</p></div>'
+        location_html = f'<div style="margin-top:20px"><h3 style="{h3_style}">Location</h3><p style="line-height:1.7;margin:0">{esc(location_text.strip())}</p></div>'
 
     jsonld = json.dumps({
         "@context": "https://schema.org",
