@@ -218,7 +218,7 @@ h1, h2, h3, h4 {
   100% { background-position: -40% 0; }
 }
 
-.hero-content { position: relative; z-index: 3; max-width: 820px; transform: translateY(60px); }
+.hero-content { position: relative; z-index: 3; max-width: 820px; transform: translateY(100px); }
 .hero h1 {
   color: var(--white);
   font-size: clamp(2.2rem, 4.8vw, 4.2rem);
@@ -238,9 +238,8 @@ h1, h2, h3, h4 {
 
 .scroll-cue {
   position: absolute;
-  left: 50%;
+  right: 48px;
   bottom: 34px;
-  transform: translateX(-50%);
   z-index: 3;
   color: rgba(255,255,255,0.7);
   font-size: 0.62rem;
