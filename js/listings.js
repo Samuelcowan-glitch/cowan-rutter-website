@@ -16,9 +16,6 @@
 
   var L = [
 
-    /* ====================================================
-       COMMERCIAL — AVAILABLE — TO LET
-    ==================================================== */
     { id:'cr-c01', featured:true,  category:'commercial', status:'let', listingStatus:'available',
       type:'Office Suite', use:'office',
       title:'Units 1–3, Plato Place', area:'Fulham', postcode:'SW6 4TU', address:'72–74 St Dionis Road',
@@ -40,35 +37,8 @@
       title:'Unit 202–203, Harbour Yard', area:'Chelsea Harbour', postcode:'SW10 0XD', address:'Harbour Yard',
       price:7565, priceUnit:'pcm', sqft:1665, lat:51.4737, lng:-0.1837, added:'2026-06-22',
       photo:'photo-1497366754035-f200968a6e72',
+      photos:['img/listings/cr-c03/01.jpg','img/listings/cr-c03/02.jpg','img/listings/cr-c03/03.jpg','img/listings/cr-c03/04.jpg','img/listings/cr-c03/05.jpg','img/listings/cr-c03/06.jpg','img/listings/cr-c03/07.jpg','img/listings/cr-c03/08.jpg','img/listings/cr-c03/09.jpg','img/listings/cr-c03/10.jpg','img/listings/cr-c03/11.jpg','img/listings/cr-c03/12.jpg','img/listings/cr-c03/13.jpg'],
       blurb:'Duplex office suite to let in Harbour Yard, Chelsea Harbour — modern riverside workspace in a prestigious West London location with stunning waterfront views.' },
-
-    { id:'cr-c04', featured:false, category:'commercial', status:'let', listingStatus:'available',
-      type:'Office Suite', use:'office',
-      title:'Unit 307, Harbour Yard', area:'Chelsea Harbour', postcode:'SW10 0XD', address:'Harbour Yard',
-      price:3360, priceUnit:'pcm', sqft:750, lat:51.4738, lng:-0.1839, added:'2026-06-22',
-      photo:'photo-1497366811353-6870744d04b2',
-      blurb:'Duplex office space to let in Harbour Yard, Chelsea Harbour — modern riverside workspace with access to all building amenities.' },
-
-    { id:'cr-c05', featured:false, category:'commercial', status:'let', listingStatus:'available',
-      type:'Office Suite', use:'office',
-      title:'Unit 206, Harbour Yard', area:'Chelsea Harbour', postcode:'SW10 0XD', address:'Harbour Yard',
-      price:2800, priceUnit:'pcm', sqft:555, lat:51.4736, lng:-0.1835, added:'2026-06-22',
-      photo:'photo-1497366216548-37526070297c',
-      blurb:'Prime office space to let in Harbour Yard, Chelsea Harbour — a self-contained suite in one of West London\'s finest business addresses.' },
-
-    { id:'cr-c06', featured:false, category:'commercial', status:'let', listingStatus:'available',
-      type:'Office Suite', use:'office',
-      title:'Unit 210/210a, Harbour Yard', area:'Chelsea Harbour', postcode:'SW10 0XD', address:'Harbour Yard',
-      price:15205, priceUnit:'pcm', sqft:2824, lat:51.4739, lng:-0.1841, added:'2026-06-22',
-      photo:'photo-1497366412874-3415097a27e7',
-      blurb:'One of the largest available suites at Harbour Yard — a substantial riverside office over two floors with exceptional natural light and water views.' },
-
-    { id:'cr-c07', featured:false, category:'commercial', status:'let', listingStatus:'available',
-      type:'Office Suite', use:'office',
-      title:'Unit 208, Harbour Yard', area:'Chelsea Harbour', postcode:'SW10 0XD', address:'Harbour Yard',
-      price:2695, priceUnit:'pcm', sqft:538, lat:51.4737, lng:-0.1838, added:'2026-06-22',
-      photo:'photo-1497366754035-f200968a6e72',
-      blurb:'Compact, well-appointed office suite to let in the prestigious Harbour Yard development on the Chelsea waterfront.' },
 
     { id:'cr-c08', featured:false, category:'commercial', status:'let', listingStatus:'available',
       type:'Office Suite', use:'office',
@@ -83,6 +53,7 @@
       title:'Furniture & Arts Building — First Floor', area:'Chelsea', postcode:'SW10 0TZ', address:'533 Kings Road',
       price:110000, priceUnit:'pa', sqft:3142, lat:51.4891, lng:-0.1836, added:'2026-06-22',
       photo:'photo-1555396273-367ea4eb4db5',
+      photos:['img/listings/cr-c09/01.jpg','img/listings/cr-c09/02.jpg','img/listings/cr-c09/03.jpg','img/listings/cr-c09/04.jpg','img/listings/cr-c09/05.jpg','img/listings/cr-c09/06.jpg','img/listings/cr-c09/07.jpg','img/listings/cr-c09/08.jpg','img/listings/cr-c09/09.jpg','img/listings/cr-c09/10.jpg','img/listings/cr-c09/11.jpg','img/listings/cr-c09/12.jpg','img/listings/cr-c09/13.jpg','img/listings/cr-c09/14.jpg','img/listings/cr-c09/15.jpg'],
       blurb:'First floor office, showroom and leisure space on the King\'s Road — an exceptional opportunity in one of Chelsea\'s most celebrated buildings.' },
 
     { id:'cr-c10', featured:false, category:'commercial', status:'let', listingStatus:'available',
@@ -93,20 +64,6 @@
       photos:['img/listings/cr-c10/01.jpg','img/listings/cr-c10/02.jpg','img/listings/cr-c10/03.jpg','img/listings/cr-c10/04.jpg','img/listings/cr-c10/05.jpg','img/listings/cr-c10/06.jpg','img/listings/cr-c10/07.jpg'],
       blurb:'Prime fitted office space in the Chelsea Design Quarter — high-quality workspace on a prestigious stretch of the King\'s Road.' },
 
-    { id:'cr-c11', featured:false, category:'commercial', status:'let', listingStatus:'available',
-      type:'Industrial Unit', use:'industrial',
-      title:'Unit 12, The Talina Centre', area:'Fulham', postcode:'SW6 2BW', address:'Bagleys Lane',
-      price:49608, priceUnit:'pa', sqft:1908, lat:51.4779, lng:-0.1946, added:'2026-06-22',
-      photo:'photo-1586528116311-ad8dd3c8310d',
-      blurb:'B1 industrial warehouse and office to let with on-site parking — a versatile, well-located unit in Fulham, suitable for a range of uses.' },
-
-    { id:'cr-c12', featured:false, category:'commercial', status:'let', listingStatus:'available',
-      type:'Office Suite', use:'office',
-      title:'Britannia House', area:'Fulham', postcode:'SW6 2HE', address:'2A Britannia Way',
-      price:3892, priceUnit:'pcm', sqft:1229, lat:51.4776, lng:-0.2001, added:'2026-06-22',
-      photo:'photo-1497366412874-3415097a27e7',
-      blurb:'Boutique fitted first-floor office to let on the King\'s Road, Chelsea — offering high-quality workspace and excellent presentation throughout.' },
-
     { id:'cr-c13', featured:false, category:'commercial', status:'let', listingStatus:'available',
       type:'Office Suite', use:'office',
       title:'Worlds End Studios', area:'Chelsea', postcode:'SW10 0RJ', address:'132–134 Lots Road',
@@ -115,58 +72,22 @@
       photos:['img/listings/cr-c13/01.jpg','img/listings/cr-c13/02.jpg','img/listings/cr-c13/03.jpg','img/listings/cr-c13/04.jpg','img/listings/cr-c13/05.jpg','img/listings/cr-c13/06.jpg','img/listings/cr-c13/07.jpg','img/listings/cr-c13/08.jpg','img/listings/cr-c13/09.jpg','img/listings/cr-c13/10.jpg','img/listings/cr-c13/11.jpg','img/listings/cr-c13/12.jpg'],
       blurb:'Modern serviced office suites to rent in Chelsea on sought-after Lots Road, moments from the King\'s Road and the River Thames. Various sizes available.' },
 
-    { id:'cr-c14', featured:false, category:'commercial', status:'let', listingStatus:'available',
-      type:'Office Suite', use:'office',
-      title:'The Plaza — Office Suite', area:'Chelsea', postcode:'SW10 0SZ', address:'535 Kings Road',
-      price:65550, priceUnit:'pa', sqft:1748, lat:51.4869, lng:-0.1839, added:'2026-06-22',
-      photo:'photo-1497366811353-6870744d04b2',
-      blurb:'Rarely available office and retail suite in excellent condition within The Plaza on the King\'s Road — includes one designated car parking space.' },
-
     { id:'cr-c15', featured:false, category:'commercial', status:'let', listingStatus:'available',
       type:'Office Suite', use:'office',
       title:'Bishops Park House — Suite A', area:'Fulham', postcode:'SW6 3JH', address:'25–29 Fulham High Street',
       price:37625, priceUnit:'pa', sqft:1075, lat:51.4693, lng:-0.2173, added:'2026-06-22',
       photo:'photo-1497366216548-37526070297c',
+      photos:['img/listings/cr-c15/01.jpg','img/listings/cr-c15/02.jpg','img/listings/cr-c15/03.jpg','img/listings/cr-c15/04.jpg'],
       blurb:'Recently refurbished open-plan office to let in the heart of Fulham — bright, modern space in a purpose-built scheme with excellent access.' },
-
-    { id:'cr-c16', featured:false, category:'commercial', status:'let', listingStatus:'available',
-      type:'Office Suite', use:'office',
-      title:'Bishops Park House — Suite B', area:'Fulham', postcode:'SW6 3JH', address:'25–29 Fulham High Street',
-      price:48125, priceUnit:'pa', sqft:1375, lat:51.4694, lng:-0.2174, added:'2026-06-22',
-      photo:'photo-1497366412874-3415097a27e7',
-      blurb:'A larger refurbished suite within Bishops Park House — recently upgraded open-plan space to let in the heart of Fulham SW6.' },
-
-    { id:'cr-c17', featured:true,  category:'commercial', status:'let', listingStatus:'available',
-      type:'Office Suite', use:'office',
-      title:'The Penthouse Office Suite, 533 Kings Road', area:'Chelsea', postcode:'SW10 0TZ', address:'533 Kings Road',
-      price:0, priceUnit:'poa', sqft:2337, lat:51.4892, lng:-0.1837, added:'2026-06-22',
-      photo:'photo-1555396273-367ea4eb4db5',
-      blurb:'An exceptional penthouse office suite to let at 533 Kings Road — unrivalled position with outstanding natural light and panoramic views over Chelsea.' },
-
-    { id:'cr-c18', featured:false, category:'commercial', status:'let', listingStatus:'available',
-      type:'Office Suite', use:'office',
-      title:'533 Kings Road — Smart Office', area:'Chelsea', postcode:'SW10 0TZ', address:'533 Kings Road',
-      price:35000, priceUnit:'pa', sqft:1000, lat:51.4890, lng:-0.1836, added:'2026-06-22',
-      photo:'photo-1497366754035-f200968a6e72',
-      blurb:'Smart first floor office to let on the King\'s Road — well-presented space with good natural light in one of Chelsea\'s most prominent buildings.' },
 
     { id:'cr-c19', featured:false, category:'commercial', status:'let', listingStatus:'available',
       type:'Office Suite', use:'office',
       title:'Unit 10, Plato Place', area:'Fulham', postcode:'SW6 4TU', address:'72–74 St Dionis Road',
       price:45000, priceUnit:'pa', sqft:1282, lat:51.4754, lng:-0.2013, added:'2026-06-22',
       photo:'photo-1497366811353-6870744d04b2',
+      photos:['img/listings/cr-c19/01.jpg','img/listings/cr-c19/02.jpg','img/listings/cr-c19/03.jpg','img/listings/cr-c19/04.jpg','img/listings/cr-c19/05.jpg'],
       blurb:'Top floor E Class office space in Fulham — bright and well-appointed with exceptional natural light and excellent transport connections.' },
 
-    { id:'cr-c20', featured:false, category:'commercial', status:'let', listingStatus:'available',
-      type:'Office Suite', use:'office',
-      title:'Fairbank Studios', area:'Chelsea', postcode:'SW10 0RN', address:'Lots Road',
-      price:0, priceUnit:'poa', sqft:480, lat:51.4801, lng:-0.1852, added:'2026-06-22',
-      photo:'photo-1497366216548-37526070297c',
-      blurb:'Flexible office and retail space on a temporary basis in Chelsea — various suite sizes from 130 to 480 sq ft to suit individual requirements.' },
-
-    /* ====================================================
-       COMMERCIAL — AVAILABLE — FOR SALE
-    ==================================================== */
     { id:'cr-c21', featured:true,  category:'commercial', status:'sale', listingStatus:'available',
       type:'Industrial Unit', use:'industrial',
       title:'Units 6 & 12, The Talina Centre', area:'Fulham', postcode:'SW6 2BW', address:'Bagleys Lane',
@@ -183,23 +104,6 @@
       photos:['img/listings/cr-c22/01.jpg','img/listings/cr-c22/02.jpg','img/listings/cr-c22/03.jpg','img/listings/cr-c22/04.jpg','img/listings/cr-c22/05.jpg','img/listings/cr-c22/06.jpg','img/listings/cr-c22/07.jpg','img/listings/cr-c22/08.jpg','img/listings/cr-c22/09.jpg','img/listings/cr-c22/10.jpg'],
       blurb:'Warehouse, studio and offices for sale — a self-contained freehold unit of 2,867 sq ft at Hurlingham Business Park in Fulham SW6.' },
 
-    { id:'cr-c23', featured:false, category:'commercial', status:'sale', listingStatus:'available',
-      type:'Industrial Unit', use:'industrial',
-      title:'Unit 7, The Talina Centre', area:'Fulham', postcode:'SW6 2BW', address:'Bagleys Lane',
-      price:450000, priceUnit:'sale', priceDisplay:'OIRO £450,000', sqft:1270, lat:51.4778, lng:-0.1945, added:'2026-06-22',
-      photo:'photo-1486406146926-c627a92ad1ab',
-      blurb:'B1 industrial unit for sale with two parking spaces at The Talina Centre, Bagleys Lane — a well-positioned freehold opportunity in Fulham SW6.' },
-
-    { id:'cr-c24', featured:false, category:'commercial', status:'sale', listingStatus:'available',
-      type:'Industrial Unit', use:'industrial',
-      title:'Unit 12, The Talina Centre — Freehold', area:'Fulham', postcode:'SW6 2BW', address:'Bagleys Lane',
-      price:0, priceUnit:'poa', sqft:1908, lat:51.4779, lng:-0.1946, added:'2026-06-22',
-      photo:'photo-1586528116311-ad8dd3c8310d',
-      blurb:'B1 industrial warehouse and office available freehold — with on-site parking at The Talina Centre. Also available to let.' },
-
-    /* ====================================================
-       COMMERCIAL — UNDER OFFER
-    ==================================================== */
     { id:'cr-c25', featured:false, category:'commercial', status:'let', listingStatus:'under-offer',
       type:'Office Suite', use:'office',
       title:'Unit 2, Marlin House', area:'Fulham', postcode:'SW6 3BN', address:'40 Peterborough Road',
@@ -208,57 +112,21 @@
       photos:['img/listings/cr-c25/01.jpg','img/listings/cr-c25/02.jpg','img/listings/cr-c25/03.jpg','img/listings/cr-c25/04.jpg','img/listings/cr-c25/05.jpg','img/listings/cr-c25/06.jpg','img/listings/cr-c25/07.jpg','img/listings/cr-c25/08.jpg','img/listings/cr-c25/09.jpg','img/listings/cr-c25/10.jpg','img/listings/cr-c25/11.jpg'],
       blurb:'Fully serviced and fitted office space at Marlin House, Fulham — close to Fulham Broadway and Parsons Green station. Currently under offer.' },
 
-    { id:'cr-c26', featured:false, category:'commercial', status:'let', listingStatus:'under-offer',
-      type:'Retail Unit', use:'retail',
-      title:'488 Kings Road — Prime Retail', area:'Chelsea', postcode:'SW10 0LF', address:'488 Kings Road',
-      price:40000, priceUnit:'pa', priceDisplay:'£38,000–£42,500 per annum', sqft:970, lat:51.4870, lng:-0.1832, added:'2026-05-15',
-      photo:'photo-1604328698692-f76ea9498e76',
-      blurb:'Prime retail showroom to let on the King\'s Road, Chelsea — a rarely available assignment on one of London\'s most coveted retail streets. Under offer.' },
-
-    { id:'cr-c27', featured:false, category:'commercial', status:'let', listingStatus:'under-offer',
+    { id:'cr-c29', featured:false, category:'commercial', status:'let', listingStatus:'available',
       type:'Office Suite', use:'office',
-      title:'Furniture & Arts Building — Ground Floor', area:'Chelsea', postcode:'SW10 0TZ', address:'533 Kings Road',
-      price:30000, priceUnit:'pa', sqft:850, lat:51.4891, lng:-0.1836, added:'2026-05-10',
+      title:'Solon House — Ground Floor Suites', area:'Fulham', postcode:'SW6 3BN', address:'40 Peterborough Road',
+      price:7500, priceUnit:'pa', priceDisplay:'From £7,500 per annum', sqft:360, lat:51.4779, lng:-0.1949, added:'2026-07-14',
+      photo:'photo-1497366216548-37526070297c',
+      photos:['img/listings/cr-new-solon/01.jpg','img/listings/cr-new-solon/02.jpg','img/listings/cr-new-solon/03.jpg','img/listings/cr-new-solon/04.jpg','img/listings/cr-new-solon/05.jpg','img/listings/cr-new-solon/06.jpg'],
+      blurb:'Refurbished ground floor serviced office suites on Peterborough Road, Parsons Green — dual air-conditioning, meeting room, kitchen and shower facilities, ideal for small businesses and creative occupiers.' },
+
+    { id:'cr-c30', featured:false, category:'commercial', status:'let', listingStatus:'available',
+      type:'Retail Unit', use:'retail',
+      title:'57B New Kings Road', area:'Fulham', postcode:'SW6 4SE', address:'57B New Kings Road',
+      price:36000, priceUnit:'pa', sqft:1025, lat:51.4737, lng:-0.1965, added:'2026-07-14',
       photo:'photo-1497366754035-f200968a6e72',
-      blurb:'Open plan office and showroom at 533 Kings Road — well-presented space in a landmark Chelsea building. Currently under offer.' },
-
-    { id:'cr-c28', featured:false, category:'commercial', status:'let', listingStatus:'under-offer',
-      type:'Industrial Unit', use:'industrial',
-      title:'Hurlingham Business Park — First Floor', area:'Fulham', postcode:'SW6 3DU', address:'Sulivan Road',
-      price:40500, priceUnit:'pa', sqft:1620, lat:51.4707, lng:-0.2051, added:'2026-05-20',
-      photo:'photo-1486406146926-c627a92ad1ab',
-      blurb:'First floor office and warehouse unit with meeting rooms at Hurlingham Business Park, Fulham SW6. Currently under offer.' },
-
-    /* ====================================================
-       RESIDENTIAL — SAMPLE (to be updated with live stock)
-    ==================================================== */
-    { id:'cr-r01', featured:true,  category:'residential', status:'sale', listingStatus:'available',
-      type:'Apartment', use:null,
-      title:'Cadogan Square Apartment', area:'Knightsbridge', postcode:'SW1X', address:'Cadogan Square',
-      price:4250000, priceUnit:'sale', beds:3, baths:2, sqft:1850, lat:51.4985, lng:-0.1607, added:'2026-06-10',
-      photo:'photo-1568605114967-8130f3a36994',
-      blurb:'A beautifully proportioned lateral apartment in a handsome red-brick mansion building, moments from the boutiques of Sloane Street and the gardens of Cadogan Square.' },
-
-    { id:'cr-r02', featured:false, category:'residential', status:'let', listingStatus:'available',
-      type:'Apartment', use:null,
-      title:'Imperial Wharf Riverside Apartment', area:'Fulham', postcode:'SW6', address:'Imperial Wharf',
-      price:5400, priceUnit:'pcm', beds:2, baths:2, sqft:1100, lat:51.4734, lng:-0.1818, added:'2026-06-15',
-      photo:'photo-1502672260266-1c1ef2d93688',
-      blurb:'A bright contemporary apartment with a private balcony overlooking the river, available furnished within a sought-after riverside development with concierge.' },
-
-    { id:'cr-r03', featured:false, category:'residential', status:'let', listingStatus:'available',
-      type:'Garden Flat', use:null,
-      title:'Parsons Green Garden Flat', area:'Fulham', postcode:'SW6', address:'Parsons Green',
-      price:3950, priceUnit:'pcm', beds:2, baths:1, sqft:900, lat:51.4753, lng:-0.2012, added:'2026-06-02',
-      photo:'photo-1493809842364-78817add7ffb',
-      blurb:'A delightful raised ground and lower floor flat with its own private garden, set just a short stroll from the Green and the shops of the New King\'s Road.' },
-
-    { id:'cr-r04', featured:false, category:'residential', status:'sale', listingStatus:'available',
-      type:'Mews House', use:null,
-      title:"Queen's Gate Mews House", area:'South Kensington', postcode:'SW7', address:"Queen's Gate Mews",
-      price:2850000, priceUnit:'sale', beds:3, baths:2, sqft:1600, lat:51.4944, lng:-0.1768, added:'2026-05-28',
-      photo:'photo-1570129477492-45c003edd2be',
-      blurb:'A charming and immaculately presented mews house on a quiet cobbled lane, offering rare off-street parking and a flood of natural light throughout.' }
+      photos:['img/listings/cr-new-57b/01.jpg','img/listings/cr-new-57b/02.jpg','img/listings/cr-new-57b/03.jpg','img/listings/cr-new-57b/04.jpg','img/listings/cr-new-57b/05.jpg','img/listings/cr-new-57b/06.jpg'],
+      blurb:'Self-contained E Class unit opposite Eel Brook Common, arranged over ground and lower ground floors with a fully glazed shopfront — excellent natural light and outstanding street visibility.' }
 
   ];
 
