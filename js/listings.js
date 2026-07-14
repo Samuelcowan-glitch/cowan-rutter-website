@@ -7,6 +7,9 @@
     if (!p) p = 'photo-1497366216548-37526070297c';
     // A full URL (e.g. a photo uploaded in the database) is used as-is.
     if (/^https?:\/\//.test(p)) return p;
+    // A real local property photo — serve from the site root regardless of
+    // which page (e.g. /properties/) included this script.
+    if (/^img\//.test(p)) return '/' + p;
     return 'https://images.unsplash.com/' + p + '?auto=format&fit=crop&w=' + (w || 900) + '&h=' + (h || 640) + '&q=80';
   }
   var EX = ['photo-1497366216548-37526070297c','photo-1497366412874-3415097a27e7','photo-1497366754035-f200968a6e72','photo-1497366811353-6870744d04b2'];
