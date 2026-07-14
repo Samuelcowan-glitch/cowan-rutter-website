@@ -151,7 +151,7 @@ els.status.addEventListener('change', function () { state.status = this.value; s
   function cardHTML(l) {
     var fav = !!state.favs[l.id];
     // Cards with 2+ real uploaded photos auto-rotate their cover (see startCardRotation).
-    var rot = (l.photos && l.photos.length > 1) ? ' data-rotate="'+l.photos.map(esc).join('|')+'"' : '';
+    var rot = (l.photos && l.photos.length > 1) ? ' data-rotate="'+l.photos.map(function(u){return esc(CR.img(u));}).join('|')+'"' : '';
     return '<article class="ps-card" data-id="'+l.id+'">'
       +'<div class="ps-card-media">'
         +'<img'+rot+' src="'+CR.cover(l,760,560)+'" alt="'+esc(l.title)+'" onerror="this.style.opacity=0">'
