@@ -67,7 +67,7 @@
     { id:'cr-c13', featured:false, category:'commercial', status:'let', listingStatus:'available',
       type:'Office Suite', use:'office',
       title:'Worlds End Studios', area:'Chelsea', postcode:'SW10 0RJ', address:'132–134 Lots Road',
-      price:1400, priceUnit:'pcm', priceDisplay:'From £1,400 per month', sqft:580, lat:51.4800, lng:-0.1854, added:'2026-06-22',
+      price:1400, priceUnit:'pcm', priceDisplay:'From £1,400 pcm', sqft:580, lat:51.4800, lng:-0.1854, added:'2026-06-22',
       photo:'photo-1497366754035-f200968a6e72',
       photos:['img/listings/cr-c13/01.jpg','img/listings/cr-c13/02.jpg','img/listings/cr-c13/03.jpg','img/listings/cr-c13/04.jpg','img/listings/cr-c13/05.jpg','img/listings/cr-c13/06.jpg','img/listings/cr-c13/07.jpg','img/listings/cr-c13/08.jpg','img/listings/cr-c13/09.jpg','img/listings/cr-c13/10.jpg','img/listings/cr-c13/11.jpg','img/listings/cr-c13/12.jpg'],
       blurb:'Modern serviced office suites to rent in Chelsea on sought-after Lots Road, moments from the King\'s Road and the River Thames. Various sizes available.' },
