@@ -21,6 +21,7 @@
       title:'Units 1–3, Plato Place', area:'Fulham', postcode:'SW6 4TU', address:'72–74 St Dionis Road',
       price:98800, priceUnit:'pa', sqft:2470, lat:51.4753, lng:-0.2012, added:'2026-06-22',
       photo:'photo-1497366216548-37526070297c',
+      photos:['img/listings/cr-c01/01.jpg','img/listings/cr-c01/02.jpg','img/listings/cr-c01/03.jpg','img/listings/cr-c01/04.jpg','img/listings/cr-c01/05.jpg','img/listings/cr-c01/06.jpg','img/listings/cr-c01/07.jpg'],
       blurb:'Bright, spacious office space just off Parsons Green, offering excellent natural light in a quiet yet well-connected Fulham location.' },
 
     { id:'cr-c02', featured:false, category:'commercial', status:'let', listingStatus:'available',
@@ -28,6 +29,7 @@
       title:'Lockside House', area:'Chelsea Creek', postcode:'SW6 2XD', address:'1 Thurstan Street',
       price:42120, priceUnit:'pa', sqft:936, lat:51.4734, lng:-0.1818, added:'2026-06-22',
       photo:'photo-1497366412874-3415097a27e7',
+      photos:['img/listings/cr-c02/01.jpg','img/listings/cr-c02/02.jpg','img/listings/cr-c02/03.jpg','img/listings/cr-c02/04.jpg','img/listings/cr-c02/05.jpg','img/listings/cr-c02/06.jpg','img/listings/cr-c02/07.jpg','img/listings/cr-c02/08.jpg','img/listings/cr-c02/09.jpg','img/listings/cr-c02/10.jpg','img/listings/cr-c02/11.jpg','img/listings/cr-c02/12.jpg','img/listings/cr-c02/13.jpg','img/listings/cr-c02/14.jpg','img/listings/cr-c02/15.jpg','img/listings/cr-c02/16.jpg','img/listings/cr-c02/17.jpg','img/listings/cr-c02/18.jpg','img/listings/cr-c02/19.jpg','img/listings/cr-c02/20.jpg'],
       blurb:'Fully fitted and furnished ground floor commercial unit within the prestigious Chelsea Creek development — ready to occupy immediately.' },
 
     { id:'cr-c03', featured:true,  category:'commercial', status:'let', listingStatus:'available',
@@ -70,6 +72,7 @@
       title:'Suite 7, Station Court', area:'Fulham', postcode:'SW6 2PY', address:'2 Station Court',
       price:750, priceUnit:'pcm', sqft:430, lat:51.4726, lng:-0.1789, added:'2026-06-22',
       photo:'photo-1497366811353-6870744d04b2',
+      photos:['img/listings/cr-c08/01.jpg'],
       blurb:'Modern self-contained office to let next to Imperial Wharf — comfort cooling, kitchenette and excellent transport links to central London.' },
 
     { id:'cr-c09', featured:true,  category:'commercial', status:'let', listingStatus:'available',
@@ -84,6 +87,7 @@
       title:'591–593 Kings Road', area:'Chelsea', postcode:'SW6 2EH', address:'591–593 Kings Road',
       price:23500, priceUnit:'pa', sqft:518, lat:51.4809, lng:-0.1938, added:'2026-06-22',
       photo:'photo-1497366216548-37526070297c',
+      photos:['img/listings/cr-c10/01.jpg','img/listings/cr-c10/02.jpg','img/listings/cr-c10/03.jpg','img/listings/cr-c10/04.jpg','img/listings/cr-c10/05.jpg','img/listings/cr-c10/06.jpg','img/listings/cr-c10/07.jpg'],
       blurb:'Prime fitted office space in the Chelsea Design Quarter — high-quality workspace on a prestigious stretch of the King\'s Road.' },
 
     { id:'cr-c11', featured:false, category:'commercial', status:'let', listingStatus:'available',
@@ -105,6 +109,7 @@
       title:'Worlds End Studios', area:'Chelsea', postcode:'SW10 0RJ', address:'132–134 Lots Road',
       price:1400, priceUnit:'pcm', priceDisplay:'From £1,400 per month', sqft:580, lat:51.4800, lng:-0.1854, added:'2026-06-22',
       photo:'photo-1497366754035-f200968a6e72',
+      photos:['img/listings/cr-c13/01.jpg','img/listings/cr-c13/02.jpg','img/listings/cr-c13/03.jpg','img/listings/cr-c13/04.jpg','img/listings/cr-c13/05.jpg','img/listings/cr-c13/06.jpg','img/listings/cr-c13/07.jpg','img/listings/cr-c13/08.jpg','img/listings/cr-c13/09.jpg','img/listings/cr-c13/10.jpg','img/listings/cr-c13/11.jpg','img/listings/cr-c13/12.jpg'],
       blurb:'Modern serviced office suites to rent in Chelsea on sought-after Lots Road, moments from the King\'s Road and the River Thames. Various sizes available.' },
 
     { id:'cr-c14', featured:false, category:'commercial', status:'let', listingStatus:'available',
@@ -164,6 +169,7 @@
       title:'Units 6 & 12, The Talina Centre', area:'Fulham', postcode:'SW6 2BW', address:'Bagleys Lane',
       price:1300000, priceUnit:'sale', priceDisplay:'OIRO £1,300,000', sqft:3816, lat:51.4780, lng:-0.1947, added:'2026-06-22',
       photo:'photo-1586528116311-ad8dd3c8310d',
+      photos:['img/listings/cr-c21/01.jpg'],
       blurb:'Warehouses and offices for sale at The Talina Centre — a substantial industrial and office freehold of 3,816 sq ft (361.8 sq m) in Fulham SW6.' },
 
     { id:'cr-c22', featured:false, category:'commercial', status:'sale', listingStatus:'available',
@@ -171,6 +177,7 @@
       title:'Hurlingham Business Park — Unit 6', area:'Fulham', postcode:'SW6 3DU', address:'Sulivan Road',
       price:1350000, priceUnit:'sale', priceDisplay:'OIRO £1,350,000', sqft:2867, lat:51.4706, lng:-0.2050, added:'2026-06-22',
       photo:'photo-1486406146926-c627a92ad1ab',
+      photos:['img/listings/cr-c22/01.jpg','img/listings/cr-c22/02.jpg','img/listings/cr-c22/03.jpg','img/listings/cr-c22/04.jpg','img/listings/cr-c22/05.jpg','img/listings/cr-c22/06.jpg','img/listings/cr-c22/07.jpg','img/listings/cr-c22/08.jpg','img/listings/cr-c22/09.jpg','img/listings/cr-c22/10.jpg'],
       blurb:'Warehouse, studio and offices for sale — a self-contained freehold unit of 2,867 sq ft at Hurlingham Business Park in Fulham SW6.' },
 
     { id:'cr-c23', featured:false, category:'commercial', status:'sale', listingStatus:'available',
@@ -195,6 +202,7 @@
       title:'Unit 2, Marlin House', area:'Fulham', postcode:'SW6 3BN', address:'40 Peterborough Road',
       price:12500, priceUnit:'pa', sqft:236, lat:51.4779, lng:-0.1948, added:'2026-06-01',
       photo:'photo-1497366412874-3415097a27e7',
+      photos:['img/listings/cr-c25/01.jpg','img/listings/cr-c25/02.jpg','img/listings/cr-c25/03.jpg','img/listings/cr-c25/04.jpg','img/listings/cr-c25/05.jpg','img/listings/cr-c25/06.jpg','img/listings/cr-c25/07.jpg','img/listings/cr-c25/08.jpg','img/listings/cr-c25/09.jpg','img/listings/cr-c25/10.jpg','img/listings/cr-c25/11.jpg'],
       blurb:'Fully serviced and fitted office space at Marlin House, Fulham — close to Fulham Broadway and Parsons Green station. Currently under offer.' },
 
     { id:'cr-c26', featured:false, category:'commercial', status:'let', listingStatus:'under-offer',
