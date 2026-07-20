@@ -95,44 +95,6 @@ els.status.addEventListener('change', function () { state.status = this.value; s
     renderChips();
 
     els.grid.innerHTML = list.length ? list.map(cardHTML).join('') : emptyHTML();
-    startCardRotation();
-  }
-
-  // Auto-rotate the cover image of any card that has multiple real photos.
-  // Uses a true crossfade — a fading overlay image — so the change is smooth
-  // rather than a flicker/dim-and-snap.
-  var cardRotTimer = null;
-  function startCardRotation() {
-    if (cardRotTimer) { clearInterval(cardRotTimer); cardRotTimer = null; }
-    var sets = [];
-    Array.prototype.forEach.call(els.grid.querySelectorAll('.ps-card-media img[data-rotate]'), function (img) {
-      var photos = img.getAttribute('data-rotate').split('|');
-      if (photos.length < 2) return;
-      photos.forEach(function (u) { var im = new Image(); im.src = u; });   // preload
-      sets.push({ media: img.parentNode, base: img, photos: photos, i: 0 });
-    });
-    if (!sets.length) return;
-    cardRotTimer = setInterval(function () {
-      sets.forEach(function (s) {
-        s.i = (s.i + 1) % s.photos.length;
-        var next = s.photos[s.i];
-        var overlay = document.createElement('img');
-        overlay.className = 'ps-rot-fade';
-        overlay.alt = '';
-        overlay.src = next;
-        s.media.appendChild(overlay);
-        void overlay.offsetWidth;                 // force reflow so the fade-in animates
-        overlay.classList.add('is-in');
-        var committed = false;
-        var commit = function () {
-          if (committed) return; committed = true;
-          s.base.src = next;                      // bake the new image into the base layer
-          if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
-        };
-        overlay.addEventListener('transitionend', function (e) { if (e.propertyName === 'opacity') commit(); });
-        setTimeout(commit, 1200);                 // fallback if transitionend doesn't fire
-      });
-    }, 4500);
   }
 
   function renderChips() {
@@ -150,11 +112,9 @@ els.status.addEventListener('change', function () { state.status = this.value; s
 
   function cardHTML(l) {
     var fav = !!state.favs[l.id];
-    // Cards with 2+ real uploaded photos auto-rotate their cover (see startCardRotation).
-    var rot = (l.photos && l.photos.length > 1) ? ' data-rotate="'+l.photos.map(function(u){return esc(CR.img(u));}).join('|')+'"' : '';
     return '<article class="ps-card" data-id="'+l.id+'">'
       +'<div class="ps-card-media">'
-        +'<img'+rot+' src="'+CR.cover(l,760,560)+'" alt="'+esc(l.title)+'" onerror="this.style.opacity=0">'
+        +'<img src="'+CR.cover(l,760,560)+'" alt="'+esc(l.title)+'" onerror="this.style.opacity=0">'
         +'<div class="ps-badges">'+CR.statusBadge(l)+(l.featured?'<span class="ps-badge ps-badge--featured">Featured</span>':'')+'</div>'
         +'<button class="ps-fav'+(fav?' is-fav':'')+'" data-fav="'+l.id+'" aria-label="Save property">'+(fav?'♥':'♡')+'</button>'
       +'</div>'

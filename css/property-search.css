@@ -61,9 +61,6 @@
 .ps-card-media { position: relative; overflow: hidden; aspect-ratio: 4 / 3; background: linear-gradient(135deg, #1c3160, #0e1f44); }
 .ps-card-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .7s var(--ease, ease), opacity .3s; }
 .ps-card:hover .ps-card-media img { transform: scale(1.07); }
-/* crossfade overlay used by auto-rotating card covers */
-.ps-card-media .ps-rot-fade { opacity: 0; z-index: 1; transition: opacity .9s var(--ease, ease), transform .7s var(--ease, ease); }
-.ps-card-media .ps-rot-fade.is-in { opacity: 1; }
 .ps-badges { position: absolute; top: 14px; left: 14px; display: flex; flex-direction: column; gap: 7px; align-items: flex-start; z-index: 2; }
 .ps-badge { background: var(--brass, #e0303f); color: #fff; font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; padding: 6px 11px; font-family: var(--sans, "Jost", sans-serif); }
 .ps-badge--featured { background: rgba(14,31,68,.92); font-size: .58rem; padding: 5px 11px; }
