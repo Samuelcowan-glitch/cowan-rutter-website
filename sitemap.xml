@@ -29,10 +29,6 @@
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://cowanandrutter.com/listings/units-1-3-plato-place-72-74-st-dionis-road-cr-lst-1/</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://cowanandrutter.com/listings/100-waterford-new-kings-road-cheslea-cr-lst-42/</loc>
     <priority>0.6</priority>
   </url>
@@ -45,10 +41,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://cowanandrutter.com/listings/lockside-house-1-thurstan-street-cr-lst-34/</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://cowanandrutter.com/listings/marlin-house-40-peterborough-road-cr-lst-33/</loc>
     <priority>0.6</priority>
   </url>
@@ -58,6 +50,42 @@
   </url>
   <url>
     <loc>https://cowanandrutter.com/listings/57b-new-kings-road-chelsea-cr-lst-45/</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cowanandrutter.com/listings/solon-house-peterborough-road-fulham-cr-lst-46/</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cowanandrutter.com/listings/591-593-kings-road-cr-lst-47/</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cowanandrutter.com/listings/units-6-12-the-talina-centre-bagleys-lane-cr-lst-48/</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cowanandrutter.com/listings/furniture-arts-building-first-floor-533-kings-road-cr-lst-49/</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cowanandrutter.com/listings/worlds-end-studios-132-134-lots-road-cr-lst-50/</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cowanandrutter.com/listings/unit-10-plato-place-72-74-st-dionis-road-cr-lst-51/</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cowanandrutter.com/listings/suite-7-station-court-2-station-court-cr-lst-52/</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cowanandrutter.com/listings/flat-4-melbourne-house-50-kensington-place-london-cr-lst-79/</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cowanandrutter.com/listings/lockside-house-1-thurstan-street-cr-lst-34/</loc>
     <priority>0.6</priority>
   </url>
 </urlset>
