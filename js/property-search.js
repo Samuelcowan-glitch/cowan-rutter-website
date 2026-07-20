@@ -398,12 +398,30 @@ function facts(l) {
     if (settled) return;
     settled = true;
     DATA = window.CR_LISTINGS;
-    render();
+    preloadCoversThenRender();
   }
+  // Preload the visible cards' cover photos behind the loading placeholder so
+  // the cards appear complete (no blue flash while each photo downloads).
+  // Capped so one slow photo can't hold the whole grid back.
+  function preloadCoversThenRender() {
+    var list = results();
+    var urls = [];
+    for (var i = 0; i < list.length && i < 12; i++) urls.push(CR.cover(list[i], 760, 560));
+    if (!urls.length) { render(); return; }
+    var remaining = urls.length, done = false;
+    function finish() { if (done) return; done = true; render(); }
+    urls.forEach(function (u) {
+      var im = new Image();
+      im.onload = im.onerror = function () { if (--remaining === 0) finish(); };
+      im.src = u;
+    });
+    setTimeout(finish, 3000);
+  }
+
+  renderLoading();
   if (window.CR_LIVE_STATUS && window.CR_LIVE_STATUS !== 'pending') {
     paintLive();
   } else {
-    renderLoading();
     document.addEventListener('cr:listings-updated', paintLive);
     setTimeout(paintLive, 6000);   // fallback if the fetch stalls entirely
   }

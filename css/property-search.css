@@ -58,7 +58,7 @@
 
 .ps-card { background: #fff; border: 1px solid rgba(14,31,68,.10); cursor: pointer; display: flex; flex-direction: column; transition: transform .4s var(--ease, ease), box-shadow .4s var(--ease, ease); }
 .ps-card:hover { transform: translateY(-5px); box-shadow: 0 26px 46px -28px rgba(14,31,68,.45); }
-.ps-card-media { position: relative; overflow: hidden; aspect-ratio: 4 / 3; background: linear-gradient(135deg, #1c3160, #0e1f44); }
+.ps-card-media { position: relative; overflow: hidden; aspect-ratio: 4 / 3; background: #eef2f8; }
 .ps-card-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .7s var(--ease, ease), opacity .3s; }
 .ps-card:hover .ps-card-media img { transform: scale(1.07); }
 /* Loading placeholder cards (static, no motion) */
