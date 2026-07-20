@@ -41,10 +41,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://cowanandrutter.com/listings/lockside-house-1-thurstan-street-cr-lst-34/</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://cowanandrutter.com/listings/marlin-house-40-peterborough-road-cr-lst-33/</loc>
     <priority>0.6</priority>
   </url>
@@ -86,6 +82,10 @@
   </url>
   <url>
     <loc>https://cowanandrutter.com/listings/flat-4-melbourne-house-50-kensington-place-london-cr-lst-79/</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cowanandrutter.com/listings/lockside-house-1-thurstan-street-cr-lst-34/</loc>
     <priority>0.6</priority>
   </url>
 </urlset>
