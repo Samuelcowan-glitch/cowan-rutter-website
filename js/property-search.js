@@ -129,6 +129,18 @@ els.status.addEventListener('change', function () { state.status = this.value; s
 
   function emptyHTML() { return '<div class="ps-empty"><h3>No properties match those filters.</h3><button type="button" class="btn" id="ps-reset">Reset search</button></div>'; }
 
+  // Static placeholder cards shown while the live database listings load, so
+  // the page never flashes the old hardcoded demo listings first.
+  function renderLoading() {
+    els.count.textContent = '';
+    els.countLabel.textContent = 'Loading properties…';
+    var card = '<article class="ps-card ps-card--skeleton" aria-hidden="true">'
+      + '<div class="ps-card-media"></div>'
+      + '<div class="ps-card-body"><span class="ps-skl ps-skl-lg"></span>'
+      + '<span class="ps-skl ps-skl-md"></span><span class="ps-skl ps-skl-sm"></span></div></article>';
+    els.grid.innerHTML = new Array(6).join(card) + card;
+  }
+
   /* map */
   function showMap(list) {
     if (!window.L) {
@@ -377,11 +389,22 @@ function facts(l) {
   function renderPanelFav(){var b=els.panel.querySelector('#ps-panel-fav');if(b)b.textContent=state.favs[state.quickId]?'Saved ♥':'Save ♡';}
   function closeQuick(){state.quickId=null;els.panel.hidden=true;els.panel.innerHTML='';document.body.style.overflow='';}
 
-  render();
-
-  /* Re-render when live DB listings arrive from listings.js fetch */
-  document.addEventListener('cr:listings-updated', function () {
+  /* Wait for the live DB listings before painting real cards. If the fetch
+     has already settled (e.g. served from cache) render straight away;
+     otherwise show the loading placeholder and a safety net in case the
+     fetch never fires an event. */
+  var settled = false;
+  function paintLive() {
+    if (settled) return;
+    settled = true;
     DATA = window.CR_LISTINGS;
     render();
-  });
+  }
+  if (window.CR_LIVE_STATUS && window.CR_LIVE_STATUS !== 'pending') {
+    paintLive();
+  } else {
+    renderLoading();
+    document.addEventListener('cr:listings-updated', paintLive);
+    setTimeout(paintLive, 6000);   // fallback if the fetch stalls entirely
+  }
 })();

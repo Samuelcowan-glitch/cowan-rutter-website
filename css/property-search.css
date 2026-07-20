@@ -61,6 +61,15 @@
 .ps-card-media { position: relative; overflow: hidden; aspect-ratio: 4 / 3; background: linear-gradient(135deg, #1c3160, #0e1f44); }
 .ps-card-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .7s var(--ease, ease), opacity .3s; }
 .ps-card:hover .ps-card-media img { transform: scale(1.07); }
+/* Loading placeholder cards (static, no motion) */
+.ps-card--skeleton { cursor: default; pointer-events: none; }
+.ps-card--skeleton:hover { transform: none; box-shadow: none; }
+.ps-card--skeleton .ps-card-media { background: #eef2f8; }
+.ps-card--skeleton .ps-card-body { padding: 22px 22px 26px; display: flex; flex-direction: column; gap: 12px; }
+.ps-skl { display: block; height: 13px; border-radius: 3px; background: #e4e9f1; }
+.ps-skl-lg { width: 55%; height: 20px; }
+.ps-skl-md { width: 80%; }
+.ps-skl-sm { width: 35%; height: 11px; }
 .ps-badges { position: absolute; top: 14px; left: 14px; display: flex; flex-direction: column; gap: 7px; align-items: flex-start; z-index: 2; }
 .ps-badge { background: var(--brass, #e0303f); color: #fff; font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; padding: 6px 11px; font-family: var(--sans, "Jost", sans-serif); }
 .ps-badge--featured { background: rgba(14,31,68,.92); font-size: .58rem; padding: 5px 11px; }

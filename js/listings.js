@@ -229,17 +229,30 @@
   /* ── Live DB fetch ──────────────────────────────────────────────────────────
      Any property marked "List on website" in the database will automatically
      appear here. Falls back to hardcoded listings if DB is offline.          */
+  // 'pending' until the fetch settles, then 'live' (DB data) or 'fallback'
+  // (DB unreachable/empty — keep the hardcoded list). The properties page
+  // waits on this so it never flashes the hardcoded demo listings first.
   var CR_API_URL = 'https://web-production-3d01.up.railway.app/api/listings';
+  window.CR_LIVE_STATUS = 'pending';
+  function settleListings(status) {
+    window.CR_LIVE_STATUS = status;
+    document.dispatchEvent(new CustomEvent('cr:listings-updated'));
+  }
   if (typeof fetch !== 'undefined') {
     fetch(CR_API_URL)
       .then(function (r) { return r.ok ? r.json() : []; })
       .then(function (live) {
-        if (!live || !live.length) return;
-        // Replace hardcoded listings with live DB data entirely (no duplicates)
-        window.CR_LISTINGS = live;
-        document.dispatchEvent(new CustomEvent('cr:listings-updated'));
+        if (live && live.length) {
+          // Replace hardcoded listings with live DB data entirely (no duplicates)
+          window.CR_LISTINGS = live;
+          settleListings('live');
+        } else {
+          settleListings('fallback');
+        }
       })
-      .catch(function () {});
+      .catch(function () { settleListings('fallback'); });
+  } else {
+    window.CR_LIVE_STATUS = 'fallback';
   }
 
   window.CR = {
