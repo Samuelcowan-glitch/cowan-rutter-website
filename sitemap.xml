@@ -45,7 +45,7 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://cowanandrutter.com/listings/marlin-house-40-peterborough-road-cr-lst-33/</loc>
+    <loc>https://cowanandrutter.com/listings/ground-floor-marlin-house-40-peterborough-road-cr-lst-33/</loc>
     <priority>0.6</priority>
   </url>
   <url>
@@ -69,19 +69,15 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://cowanandrutter.com/listings/suite-7-station-court-2-station-court-cr-lst-52/</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://cowanandrutter.com/listings/unit-10-plato-place-72-74-st-dionis-road-cr-lst-51/</loc>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://cowanandrutter.com/listings/flat-4-melbourne-house-50-kensington-place-london-cr-lst-79/</loc>
+    <loc>https://cowanandrutter.com/listings/suite-7-station-court-2-station-court-cr-lst-52/</loc>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://cowanandrutter.com/listings/lockside-house-1-thurstan-street-cr-lst-34/</loc>
+    <loc>https://cowanandrutter.com/listings/flat-4-melbourne-house-50-kensington-place-london-cr-lst-79/</loc>
     <priority>0.6</priority>
   </url>
   <url>
@@ -102,6 +98,18 @@
   </url>
   <url>
     <loc>https://cowanandrutter.com/listings/488-kings-road-prime-retail-cr-lst-83/</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cowanandrutter.com/listings/ground-floor-furniture-arts-building-ground-floor-533-kings-road-cr-lst-84/</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cowanandrutter.com/listings/first-floor-hurlingham-business-park-first-floor-sulivan-road-cr-lst-85/</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cowanandrutter.com/listings/lockside-house-1-thurstan-street-cr-lst-34/</loc>
     <priority>0.6</priority>
   </url>
 </urlset>
