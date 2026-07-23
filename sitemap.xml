@@ -41,6 +41,10 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://cowanandrutter.com/listings/solon-house-peterborough-road-fulham-cr-lst-46/</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://cowanandrutter.com/listings/marlin-house-40-peterborough-road-cr-lst-33/</loc>
     <priority>0.6</priority>
   </url>
@@ -50,10 +54,6 @@
   </url>
   <url>
     <loc>https://cowanandrutter.com/listings/57b-new-kings-road-chelsea-cr-lst-45/</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://cowanandrutter.com/listings/solon-house-peterborough-road-fulham-cr-lst-46/</loc>
     <priority>0.6</priority>
   </url>
   <url>
@@ -98,6 +98,10 @@
   </url>
   <url>
     <loc>https://cowanandrutter.com/listings/bishops-park-house-suite-b-25-29-fulham-high-street-cr-lst-82/</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cowanandrutter.com/listings/488-kings-road-prime-retail-cr-lst-83/</loc>
     <priority>0.6</priority>
   </url>
 </urlset>
