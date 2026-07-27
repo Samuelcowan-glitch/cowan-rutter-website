@@ -59,14 +59,17 @@
 .ps-card { background: #fff; border: 1px solid rgba(14,31,68,.10); cursor: pointer; display: flex; flex-direction: column; transition: transform .4s var(--ease, ease), box-shadow .4s var(--ease, ease); }
 .ps-card:hover { transform: translateY(-5px); box-shadow: 0 26px 46px -28px rgba(14,31,68,.45); }
 .ps-card-media { position: relative; overflow: hidden; aspect-ratio: 4 / 3; background: #eef2f8; }
-.ps-card-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .7s var(--ease, ease), opacity .3s; }
+.ps-card-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: transform .7s var(--ease, ease), opacity .45s ease; }
+.ps-card-media img.is-loaded { opacity: 1; }
 .ps-card:hover .ps-card-media img { transform: scale(1.07); }
 /* Loading placeholder cards (static, no motion) */
 .ps-card--skeleton { cursor: default; pointer-events: none; }
 .ps-card--skeleton:hover { transform: none; box-shadow: none; }
 .ps-card--skeleton .ps-card-media { background: #eef2f8; }
 .ps-card--skeleton .ps-card-body { padding: 22px 22px 26px; display: flex; flex-direction: column; gap: 12px; }
-.ps-skl { display: block; height: 13px; border-radius: 3px; background: #e4e9f1; }
+.ps-card--skeleton .ps-card-media { background: linear-gradient(100deg, #eef2f8 30%, #e2e8f3 50%, #eef2f8 70%) #eef2f8; background-size: 200% 100%; animation: ps-shimmer 1.3s ease-in-out infinite; }
+.ps-skl { display: block; height: 13px; border-radius: 3px; background: linear-gradient(100deg, #e4e9f1 30%, #eef2f8 50%, #e4e9f1 70%) #e4e9f1; background-size: 200% 100%; animation: ps-shimmer 1.3s ease-in-out infinite; }
+@keyframes ps-shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
 .ps-skl-lg { width: 55%; height: 20px; }
 .ps-skl-md { width: 80%; }
 .ps-skl-sm { width: 35%; height: 11px; }

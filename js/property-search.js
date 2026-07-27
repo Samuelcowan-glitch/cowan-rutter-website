@@ -114,7 +114,7 @@ els.status.addEventListener('change', function () { state.status = this.value; s
     var fav = !!state.favs[l.id];
     return '<article class="ps-card" data-id="'+l.id+'">'
       +'<div class="ps-card-media">'
-        +'<img src="'+CR.cover(l,760,560)+'" alt="'+esc(l.title)+'" onerror="this.style.opacity=0">'
+        +'<img src="'+CR.cover(l,760,560)+'" alt="'+esc(l.title)+'" loading="lazy" decoding="async" onload="this.classList.add(\'is-loaded\')" onerror="this.style.opacity=0">'
         +'<div class="ps-badges">'+CR.statusBadge(l)+(l.featured?'<span class="ps-badge ps-badge--featured">Featured</span>':'')+'</div>'
         +'<button class="ps-fav'+(fav?' is-fav':'')+'" data-fav="'+l.id+'" aria-label="Save property">'+(fav?'♥':'♡')+'</button>'
       +'</div>'
@@ -398,24 +398,11 @@ function facts(l) {
     if (settled) return;
     settled = true;
     DATA = window.CR_LISTINGS;
-    preloadCoversThenRender();
-  }
-  // Preload the visible cards' cover photos behind the loading placeholder so
-  // the cards appear complete (no blue flash while each photo downloads).
-  // Capped so one slow photo can't hold the whole grid back.
-  function preloadCoversThenRender() {
-    var list = results();
-    var urls = [];
-    for (var i = 0; i < list.length && i < 12; i++) urls.push(CR.cover(list[i], 760, 560));
-    if (!urls.length) { render(); return; }
-    var remaining = urls.length, done = false;
-    function finish() { if (done) return; done = true; render(); }
-    urls.forEach(function (u) {
-      var im = new Image();
-      im.onload = im.onerror = function () { if (--remaining === 0) finish(); };
-      im.src = u;
-    });
-    setTimeout(finish, 3000);
+    // Render the cards immediately as soon as the data arrives — do NOT wait
+    // for photos to download first. Each card image now lazy-loads and fades
+    // in on its own (see cardHTML + CSS), so the grid appears instantly with a
+    // soft placeholder behind each photo instead of a multi-second freeze.
+    render();
   }
 
   renderLoading();

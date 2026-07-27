@@ -5,8 +5,16 @@
 
   function img(p, w, h) {
     if (!p) p = 'photo-1497366216548-37526070297c';
-    // A full URL (e.g. a photo uploaded in the database) is used as-is.
-    if (/^https?:\/\//.test(p)) return p;
+    // A full URL (e.g. a photo uploaded in the database) is used as-is —
+    // except our own DB photo endpoint, which can return a resized thumbnail.
+    // Ask it for one sized to how the image is actually displayed instead of
+    // downloading the full-resolution original into a small card.
+    if (/^https?:\/\//.test(p)) {
+      if (w && /\/listing-photos\/\d+\/image/.test(p)) {
+        return p + (p.indexOf('?') === -1 ? '?' : '&') + 'w=' + Math.round(w);
+      }
+      return p;
+    }
     // A real local property photo — serve from the site root regardless of
     // which page (e.g. /properties/) included this script.
     if (/^img\//.test(p)) return '/' + p;
