@@ -81,6 +81,10 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://cowanandrutter.com/listings/ground-floor-and-mezzanine-2-park-street-chelsea-cr-lst-95/</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://cowanandrutter.com/listings/suite-7-station-court-2-station-court-cr-lst-52/</loc>
     <priority>0.6</priority>
   </url>
@@ -146,6 +150,10 @@
   </url>
   <url>
     <loc>https://cowanandrutter.com/listings/ground-floor-retail-96-98-waterford-road-cr-lst-89/</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cowanandrutter.com/listings/ground-floor-261-new-kings-road-fulham-cr-lst-96/</loc>
     <priority>0.6</priority>
   </url>
 </urlset>
