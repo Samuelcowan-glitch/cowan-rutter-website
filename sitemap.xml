@@ -29,11 +29,15 @@
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://cowanandrutter.com/listings/harbour-yard-chelsea-harbour-london-cr-lst-90/</loc>
+    <loc>https://cowanandrutter.com/listings/worlds-end-studios-132-134-lots-road-cr-lst-50/</loc>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://cowanandrutter.com/listings/ground-floor-basement-and-mezzanine-118-wandsworth-bridge-road-fulham-cr-lst-92/</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cowanandrutter.com/listings/harbour-yard-chelsea-harbour-london-cr-lst-90/</loc>
     <priority>0.6</priority>
   </url>
   <url>
@@ -98,10 +102,6 @@
   </url>
   <url>
     <loc>https://cowanandrutter.com/listings/britannia-house-2a-britannia-way-cr-lst-80/</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://cowanandrutter.com/listings/worlds-end-studios-132-134-lots-road-cr-lst-50/</loc>
     <priority>0.6</priority>
   </url>
   <url>
