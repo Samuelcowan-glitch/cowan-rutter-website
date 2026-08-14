@@ -65,10 +65,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://cowanandrutter.com/listings/units-6-12-the-talina-centre-bagleys-lane-cr-lst-48/</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://cowanandrutter.com/listings/furniture-arts-building-first-floor-533-kings-road-cr-lst-49/</loc>
     <priority>0.6</priority>
   </url>
@@ -154,6 +150,10 @@
   </url>
   <url>
     <loc>https://cowanandrutter.com/listings/ground-floor-261-new-kings-road-fulham-cr-lst-96/</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cowanandrutter.com/listings/unit-6-talina-centre-units-6-12-the-talina-centre-bagleys-lane-cr-lst-48/</loc>
     <priority>0.6</priority>
   </url>
 </urlset>
