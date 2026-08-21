@@ -89,10 +89,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://cowanandrutter.com/listings/bishops-park-house-suite-a-25-29-fulham-high-street-cr-lst-81/</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://cowanandrutter.com/listings/britannia-house-2a-britannia-way-cr-lst-80/</loc>
     <priority>0.6</priority>
   </url>
@@ -153,6 +149,10 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://cowanandrutter.com/listings/bishops-park-house-suite-a-25-29-fulham-high-street-cr-lst-81/</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://cowanandrutter.com/listings/unit-30-the-talina-centre-bagleys-lane-cr-lst-97/</loc>
     <priority>0.6</priority>
   </url>
@@ -166,6 +166,10 @@
   </url>
   <url>
     <loc>https://cowanandrutter.com/listings/unit-29-the-talina-centre-bagleys-lane-cr-lst-98/</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cowanandrutter.com/listings/flat-1-regency-house-hortenisa-road-cr-lst-100/</loc>
     <priority>0.6</priority>
   </url>
 </urlset>
