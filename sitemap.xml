@@ -37,10 +37,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://cowanandrutter.com/listings/harbour-yard-chelsea-harbour-london-cr-lst-90/</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://cowanandrutter.com/listings/57b-new-kings-road-chelsea-cr-lst-45/</loc>
     <priority>0.6</priority>
   </url>
@@ -170,6 +166,14 @@
   </url>
   <url>
     <loc>https://cowanandrutter.com/listings/flat-1-regency-house-hortenisa-road-cr-lst-100/</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cowanandrutter.com/listings/unit-3a-imperial-studios-imperial-road-cr-lst-101/</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cowanandrutter.com/listings/harbour-yard-chelsea-harbour-london-cr-lst-90/</loc>
     <priority>0.6</priority>
   </url>
 </urlset>
