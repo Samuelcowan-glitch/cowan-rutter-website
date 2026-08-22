@@ -10,6 +10,7 @@ JS-rendered and not crawlable per-listing).
 
 Run from the repo root: python3 generate_listing_pages.py
 """
+import datetime
 import html
 import json
 import os
@@ -83,7 +84,19 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../../css/styles.css" />
   <link rel="stylesheet" href="../../css/property-search.css" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" href="/favicon-512.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <meta property="og:url" content="{canonical}" />
+  <meta property="og:site_name" content="Cowan &amp; Rutter" />
+  <meta property="og:locale" content="en_GB" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{title}" />
+  <meta name="twitter:description" content="{description}" />
+  {twitter_image}
   <script type="application/ld+json">{jsonld}</script>
+  <script type="application/ld+json">{breadcrumbs}</script>
+  <script src="/js/analytics.js" defer></script>
 </head>
 <body class="ps-page">
 {nav}
@@ -129,6 +142,17 @@ def slugify(text):
 
 def esc(value):
     return html.escape(str(value)) if value is not None else ""
+
+
+def sized(url, width):
+    """Ask the photo API for a resized copy.
+
+    The admin app serves the raw upload by default — often 3MB per photograph —
+    and supports a ?w= parameter that returns a cached, resized JPEG instead.
+    """
+    if not url or "?" in url:
+        return url
+    return f"{url}?w={width}"
 
 
 def fmt_price(listing):
@@ -181,13 +205,42 @@ def build_page(listing):
     slug = slugify(f"{address}-{listing['id']}")
     canonical = f"{SITE_URL}/{OUT_DIR}/{slug}/"
 
+    # Real photographs of the property come first (uploaded in the admin app and
+    # served by the API); the Unsplash placeholder is only used when a listing
+    # genuinely has no photos yet.
+    photos = [p for p in (listing.get("photos") or []) if p]
     photo_id = listing.get("photo")
     og_image = ""
+    twitter_image = ""
     image_block = ""
-    if photo_id:
-        img_url = f"https://images.unsplash.com/{photo_id}?w=1200&q=80&auto=format&fit=crop"
-        og_image = f'<meta property="og:image" content="{img_url}" />'
-        image_block = f'<img src="{img_url}" alt="{esc(address)}" style="width:100%;border-radius:8px;aspect-ratio:16/9;object-fit:cover" />'
+    hero_url = ""
+
+    if photos:
+        hero_url = sized(photos[0], 1400)
+    elif photo_id:
+        hero_url = f"https://images.unsplash.com/{photo_id}?w=1200&q=80&auto=format&fit=crop"
+
+    if hero_url:
+        og_image = f'<meta property="og:image" content="{esc(hero_url)}" />'
+        twitter_image = f'<meta name="twitter:image" content="{esc(hero_url)}" />'
+        image_block = (
+            # No width/height attributes: they become presentational hints that
+            # beat the CSS aspect-ratio and stretch the image. aspect-ratio
+            # already reserves the space, so there is no layout shift.
+            f'<img src="{esc(hero_url)}" alt="{esc(address)}" fetchpriority="high" '
+            f'style="width:100%;border-radius:8px;aspect-ratio:16/9;object-fit:cover" />'
+        )
+        if len(photos) > 1:
+            thumbs = "".join(
+                f'<a href="{esc(sized(p, 1400))}" target="_blank" rel="noopener">'
+                f'<img src="{esc(sized(p, 500))}" alt="{esc(address)} &mdash; photograph {i + 2}" loading="lazy" decoding="async" '
+                f'style="width:100%;border-radius:6px;aspect-ratio:4/3;object-fit:cover" /></a>'
+                for i, p in enumerate(photos[1:9])
+            )
+            image_block += (
+                '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));'
+                f'gap:10px;margin-top:10px">{thumbs}</div>'
+            )
 
     price_display = fmt_price(listing)
     sqft_line = f" &middot; {esc(listing['sqft'])} sq ft" if listing.get("sqft") else ""
@@ -210,7 +263,7 @@ def build_page(listing):
     if location_text.strip():
         location_html = f'<div style="margin-top:20px"><h3 style="{h3_style}">Location</h3><p style="line-height:1.7;margin:0">{esc(location_text.strip())}</p></div>'
 
-    jsonld = json.dumps({
+    listing_schema = {
         "@context": "https://schema.org",
         "@type": "RealEstateListing",
         "name": address,
@@ -218,10 +271,67 @@ def build_page(listing):
         "url": canonical,
         "address": {
             "@type": "PostalAddress",
-            "addressLocality": area,
+            "streetAddress": listing.get("address") or address,
+            "addressLocality": area or "London",
             "postalCode": listing.get("postcode") or "",
             "addressCountry": "GB",
         },
+        "provider": {
+            "@type": "RealEstateAgent",
+            "@id": f"{SITE_URL}/#organisation",
+            "name": "Cowan & Rutter",
+            "url": f"{SITE_URL}/",
+            "telephone": "+44 20 7349 6666",
+        },
+    }
+    if hero_url:
+        listing_schema["image"] = [sized(p, 1400) for p in photos[:9]] if photos else [hero_url]
+    if listing.get("added"):
+        listing_schema["datePosted"] = listing["added"]
+    if listing.get("lat") and listing.get("lng"):
+        listing_schema["geo"] = {
+            "@type": "GeoCoordinates",
+            "latitude": listing["lat"],
+            "longitude": listing["lng"],
+        }
+    if listing.get("sqft"):
+        listing_schema["floorSize"] = {
+            "@type": "QuantitativeValue",
+            "value": listing["sqft"],
+            "unitCode": "FTK",
+        }
+    if listing.get("beds"):
+        listing_schema["numberOfBedrooms"] = listing["beds"]
+    if listing.get("baths"):
+        listing_schema["numberOfBathroomsTotal"] = listing["baths"]
+    if listing.get("price"):
+        offer = {
+            "@type": "Offer",
+            "price": listing["price"],
+            "priceCurrency": "GBP",
+            "availability": "https://schema.org/InStock" if status != "sold" else "https://schema.org/SoldOut",
+            "url": canonical,
+        }
+        if listing.get("priceUnit") in ("pa", "pcm"):
+            offer["@type"] = "Offer"
+            offer["priceSpecification"] = {
+                "@type": "UnitPriceSpecification",
+                "price": listing["price"],
+                "priceCurrency": "GBP",
+                "unitText": "per annum" if listing["priceUnit"] == "pa" else "per calendar month",
+            }
+        listing_schema["offers"] = offer
+
+    jsonld = json.dumps(listing_schema)
+
+    breadcrumbs = json.dumps({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": f"{SITE_URL}/"},
+            {"@type": "ListItem", "position": 2, "name": "Properties", "item": f"{SITE_URL}/properties/"},
+            {"@type": "ListItem", "position": 3, "name": address, "item": canonical},
+        ],
     })
 
     nav = NAV_HTML.format(root="../../")
@@ -232,7 +342,9 @@ def build_page(listing):
         description=description,
         canonical=canonical,
         og_image=og_image,
+        twitter_image=twitter_image,
         jsonld=jsonld,
+        breadcrumbs=breadcrumbs,
         nav=nav,
         category_label=category_label,
         status_label=status_label,
@@ -261,24 +373,118 @@ STATIC_SITEMAP_URLS = [
 ]
 
 
-def write_sitemap(listing_paths):
+def write_sitemap(entries):
+    """entries: list of {path, lastmod} for each listing page."""
+    today = datetime.date.today().isoformat()
     urls = []
     for path, priority in STATIC_SITEMAP_URLS:
-        urls.append(f"  <url>\n    <loc>{SITE_URL}/{path}</loc>\n    <priority>{priority}</priority>\n  </url>")
-    for path in listing_paths:
-        loc = f"{SITE_URL}{path}"
-        urls.append(f"  <url>\n    <loc>{loc}</loc>\n    <priority>0.6</priority>\n  </url>")
+        urls.append(
+            f"  <url>\n    <loc>{SITE_URL}/{path}</loc>\n"
+            f"    <lastmod>{today}</lastmod>\n    <priority>{priority}</priority>\n  </url>"
+        )
+    for entry in entries:
+        lastmod = entry.get("lastmod") or today
+        urls.append(
+            f"  <url>\n    <loc>{SITE_URL}{entry['path']}</loc>\n"
+            f"    <lastmod>{lastmod}</lastmod>\n    <priority>0.6</priority>\n  </url>"
+        )
     xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "\n".join(urls) + "\n</urlset>\n"
     with open("sitemap.xml", "w") as f:
         f.write(xml)
 
 
+INDEX_START = "<!-- LISTING-INDEX:START -->"
+INDEX_END = "<!-- LISTING-INDEX:END -->"
+PROPERTIES_PAGE = os.path.join("properties", "index.html")
+
+
+def write_listing_index(entries):
+    """Write a plain-HTML list of every live listing into properties/index.html.
+
+    The search grid is rendered in JavaScript, so without this block nothing on
+    the site links to the individual listing pages and search engines can only
+    reach them via the sitemap — which leaves them crawled slowly and ranked
+    poorly. This block gives every property a real internal link.
+    """
+    if not os.path.exists(PROPERTIES_PAGE):
+        print(f"Skipped listing index — {PROPERTIES_PAGE} not found")
+        return
+
+    with open(PROPERTIES_PAGE) as f:
+        src = f.read()
+
+    if INDEX_START not in src or INDEX_END not in src:
+        print(f"Skipped listing index — markers missing in {PROPERTIES_PAGE}")
+        return
+
+    groups = [("Commercial property", "commercial"), ("Residential property", "residential")]
+    sections = []
+    for heading, category in groups:
+        items = [e for e in entries if e["category"] == category]
+        if not items:
+            continue
+        items.sort(key=lambda e: e["title"].lower())
+        lis = "\n".join(
+            '          <li><a href="{path}">{title}</a>{meta}</li>'.format(
+                path=e["path"],
+                title=esc(e["title"]),
+                meta=f' <span>&middot; {esc(e["meta"])}</span>' if e["meta"] else "",
+            )
+            for e in items
+        )
+        sections.append(
+            f"      <h3>{heading}</h3>\n        <ul>\n{lis}\n        </ul>"
+        )
+
+    block = (
+        "\n      <h2>All current properties</h2>\n"
+        "      <p>Every property we are currently marketing, with a full details page for each.</p>\n"
+        + "\n".join(sections)
+        + "\n      "
+    )
+
+    new_src = re.sub(
+        re.escape(INDEX_START) + r".*?" + re.escape(INDEX_END),
+        INDEX_START + block + INDEX_END,
+        src,
+        flags=re.S,
+    )
+
+    if new_src != src:
+        with open(PROPERTIES_PAGE, "w") as f:
+            f.write(new_src)
+        print(f"Updated listing index in {PROPERTIES_PAGE} ({len(entries)} links)")
+    else:
+        print("Listing index already up to date")
+
+
+def index_meta(listing):
+    """Short suffix shown after each link in the index — area, size, price."""
+    bits = []
+    if listing.get("area"):
+        bits.append(str(listing["area"]))
+    if listing.get("sqft"):
+        bits.append(f"{listing['sqft']:,} sq ft" if isinstance(listing["sqft"], (int, float)) else f"{listing['sqft']} sq ft")
+    price = fmt_price(listing)
+    if price and price != "Price on application":
+        bits.append(html.unescape(price))
+    return " · ".join(bits)
+
+
 def main():
-    with urllib.request.urlopen(API_URL, timeout=30) as resp:
-        listings = json.loads(resp.read())
+    # Optional local file argument: `python3 scripts/generate_listing_pages.py api.json`
+    # Useful for testing on a machine whose Python cannot verify the API's TLS
+    # certificate; CI always runs without an argument and reads the live API.
+    if len(sys.argv) > 1:
+        with open(sys.argv[1]) as f:
+            listings = json.load(f)
+    else:
+        with urllib.request.urlopen(API_URL, timeout=30) as resp:
+            listings = json.loads(resp.read())
 
     current_slugs = set()
     written = []
+    entries = []
     for listing in listings:
         if not listing.get("id"):
             continue
@@ -288,7 +494,15 @@ def main():
         os.makedirs(os.path.dirname(out_path), exist_ok=True)
         with open(out_path, "w") as f:
             f.write(page)
-        written.append(f"/{OUT_DIR}/{slug}/")
+        path = f"/{OUT_DIR}/{slug}/"
+        written.append(path)
+        entries.append({
+            "path": path,
+            "title": listing.get("title") or listing.get("address") or "Property",
+            "category": "residential" if listing.get("category") == "residential" else "commercial",
+            "meta": index_meta(listing),
+            "lastmod": listing.get("added") or None,
+        })
 
     # remove stale listing directories (listing deleted/unpublished since last run)
     if os.path.isdir(OUT_DIR):
@@ -304,8 +518,10 @@ def main():
     with open(os.path.join(OUT_DIR, "_index.json"), "w") as f:
         json.dump(written, f)
 
-    write_sitemap(written)
+    write_sitemap(entries)
     print("Updated sitemap.xml")
+
+    write_listing_index(entries)
 
 
 if __name__ == "__main__":

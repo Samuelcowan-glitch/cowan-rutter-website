@@ -263,6 +263,43 @@ h1, h2, h3, h4 {
   background: linear-gradient(180deg, rgba(14,31,68,0.38), rgba(14,31,68,0.68));
 }
 .team-hero::before { background-image: url("../img/kings-road.jpg"); }
+
+.team-photo--benjamin { background-image: url("../img/benjamin.jpg"); }
+.team-photo--kathryn { background-image: url("../img/kathryn.jpg"); }
+@supports (background-image: image-set(url("../img/benjamin.webp") type("image/webp"))) {
+  .team-photo--benjamin {
+    background-image: image-set(url("../img/benjamin.webp") type("image/webp"),
+                                url("../img/benjamin.jpg") type("image/jpeg"));
+  }
+  .team-photo--kathryn {
+    background-image: image-set(url("../img/kathryn.webp") type("image/webp"),
+                                url("../img/kathryn.jpg") type("image/jpeg"));
+  }
+}
+
+.media--townhouse { background-image: url("../img/chelsea-townhouse.jpg"); }
+.media--street { background-image: url("../img/chelsea-street.jpg"); }
+
+/* Serve WebP (roughly half the bytes) to browsers that support it, keeping the
+   JPEG rules above as the fallback for those that do not. */
+@supports (background-image: image-set(url("../img/page-hero.webp") type("image/webp"))) {
+  .page-hero::before {
+    background-image: image-set(url("../img/page-hero.webp") type("image/webp"),
+                                url("../img/page-hero.jpg") type("image/jpeg"));
+  }
+  .team-hero::before {
+    background-image: image-set(url("../img/kings-road.webp") type("image/webp"),
+                                url("../img/kings-road.jpg") type("image/jpeg"));
+  }
+  .media--townhouse {
+    background-image: image-set(url("../img/chelsea-townhouse.webp") type("image/webp"),
+                                url("../img/chelsea-townhouse.jpg") type("image/jpeg"));
+  }
+  .media--street {
+    background-image: image-set(url("../img/chelsea-street.webp") type("image/webp"),
+                                url("../img/chelsea-street.jpg") type("image/jpeg"));
+  }
+}
 .page-hero .container { position: relative; z-index: 2; }
 .page-hero h1 { color: var(--white); font-size: clamp(2.4rem, 5vw, 4rem); }
 .page-hero .eyebrow { color: var(--brass); font-size: 1rem; letter-spacing: 0.22em; }

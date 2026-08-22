@@ -63,6 +63,8 @@ els.status.addEventListener('change', function () { state.status = this.value; s
     if (e.target && e.target.id === 'ps-reset') { clearAll(); return; }
     var favBtn = e.target.closest('[data-fav]');
     if (favBtn) { e.stopPropagation(); toggleFav(favBtn.dataset.fav); return; }
+    // Let real links (the crawlable listing-page links on each card) navigate.
+    if (e.target.closest('a[href]')) return;
     var card = e.target.closest('[data-id]');
     if (card) openQuick(card.dataset.id);
   });
@@ -120,7 +122,7 @@ els.status.addEventListener('change', function () { state.status = this.value; s
       +'</div>'
       +'<div class="ps-card-body">'
         +'<div class="ps-price">'+CR.formatPrice(l)+'</div>'
-        +'<div class="ps-title">'+esc(l.title)+'</div>'
+        +'<div class="ps-title"><a class="ps-card-link" href="/listings/'+listingSlug(l)+'/">'+esc(l.title)+'</a></div>'
         +'<div class="ps-addr">'+addrLine(l)+'</div>'
         +'<div class="ps-rule"></div>'
         +'<div class="ps-meta">'+CR.metaText(l)+'</div>'
