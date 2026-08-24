@@ -179,16 +179,19 @@
     return l.beds + ' bed · ' + l.baths + ' bath · ' + Number(l.sqft).toLocaleString('en-GB') + ' sq ft';
   }
 
-  // Real uploaded photos (from the DB) take priority; otherwise fall back to
-  // the placeholder photo plus a few stock examples.
+  // Only ever show photographs actually uploaded against this listing. A
+  // listing with no photographs gets the house "no photograph" panel — never a
+  // stock image, which used to make one property look like another.
+  var NO_PHOTO = '/img/no-photo.svg';
+
   function gallery(l) {
     if (l.photos && l.photos.length) return l.photos.map(function (u) { return img(u, 1100, 760); });
-    return [img(l.photo, 1100, 760), img(EX[0], 1100, 760), img(EX[1], 1100, 760), img(EX[2], 1100, 760)];
+    return [NO_PHOTO];
   }
-  // Cover image for cards: first uploaded photo, else the placeholder.
+  // Cover image for cards: first uploaded photo, else the no-photograph panel.
   function cover(l, w, h) {
     if (l.photos && l.photos.length) return img(l.photos[0], w, h);
-    return img(l.photo, w, h);
+    return NO_PHOTO;
   }
   function annual(l) { return l.priceUnit === 'pcm' ? l.price * 12 : l.price; }
 

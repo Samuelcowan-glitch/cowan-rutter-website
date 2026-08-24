@@ -208,17 +208,20 @@ def build_page(listing):
     # Real photographs of the property come first (uploaded in the admin app and
     # served by the API); the Unsplash placeholder is only used when a listing
     # genuinely has no photos yet.
+    # Only this property's own photographs are ever shown. With none uploaded
+    # the page falls back to the house "no photograph" panel — never a stock
+    # image, which previously made unrelated buildings look like the listing.
     photos = [p for p in (listing.get("photos") or []) if p]
-    photo_id = listing.get("photo")
     og_image = ""
     twitter_image = ""
     image_block = ""
-    hero_url = ""
+    hero_url = sized(photos[0], 1400) if photos else ""
 
-    if photos:
-        hero_url = sized(photos[0], 1400)
-    elif photo_id:
-        hero_url = f"https://images.unsplash.com/{photo_id}?w=1200&q=80&auto=format&fit=crop"
+    if not hero_url:
+        image_block = (
+            f'<img src="{SITE_URL}/img/no-photo.svg" alt="No photograph available for {esc(address)}" '
+            f'style="width:100%;border-radius:8px;aspect-ratio:16/9;object-fit:cover" />'
+        )
 
     if hero_url:
         og_image = f'<meta property="og:image" content="{esc(hero_url)}" />'
