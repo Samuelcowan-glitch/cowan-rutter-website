@@ -157,6 +157,12 @@
               <label for="message">Message</label>
               <textarea id="message" name="message" placeholder="How can we help?" required></textarea>
             </div>
+            <!-- Spam trap: hidden from people and from screen readers, so only
+                 an automated submission ever fills it in. -->
+            <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">
+              <label for="company_website">Company website</label>
+              <input type="text" id="company_website" name="company_website" tabindex="-1" autocomplete="off">
+            </div>
             <button type="submit" class="btn" id="contact-submit">Send Enquiry</button>
             <p class="form-note">We aim to respond to all enquiries within one working day.</p>
             <div class="form-success" id="form-success">

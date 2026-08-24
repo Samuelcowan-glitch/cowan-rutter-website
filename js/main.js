@@ -96,7 +96,10 @@
           interest:    data.interest   || 'General Enquiry',
           message:     data.message    || '',
           transaction: params.get('transaction') || '',
-          category:    params.get('category')    || ''
+          category:    params.get('category')    || '',
+          // Honeypot — hidden from people, filled in by bots. The database
+          // drops any submission that has it set.
+          company_website: data.company_website || ''
         })
       }).catch(function () { /* DB offline — email still sends fine */ });
 
