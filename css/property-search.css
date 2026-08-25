@@ -173,3 +173,57 @@
   .ps-field { flex: 1 1 100%; }
   .ps-panel-sheet { width: 100%; max-width: 100%; }
 }
+
+/* ── Full details page: photo gallery ──────────────────────────────────────
+   Arrows sit over the main photograph, clear of the middle of the image, and
+   stay at a comfortable tap size on a phone. */
+.lg-frame { position: relative; border-radius: 8px; overflow: hidden; }
+.lg-frame:focus-visible { outline: 2px solid var(--brass, #e0303f); outline-offset: 3px; }
+.lg-main { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; background: #eef2f8; }
+
+.lg-nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 46px; height: 46px; border-radius: 50%;
+  border: 0; cursor: pointer;
+  background: rgba(255, 255, 255, .88);
+  color: var(--ink, #0e1f44);
+  box-shadow: 0 2px 10px rgba(14, 31, 68, .22);
+  display: flex; align-items: center; justify-content: center;
+  transition: background .2s ease, transform .2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.lg-nav:hover { background: #fff; }
+.lg-nav:active { transform: translateY(-50%) scale(.94); }
+.lg-nav:focus-visible { outline: 2px solid var(--brass, #e0303f); outline-offset: 2px; }
+.lg-nav svg { width: 17px; height: 17px; }
+.lg-prev { left: 12px; }
+.lg-next { right: 12px; }
+
+.lg-count {
+  position: absolute; right: 12px; bottom: 12px;
+  background: rgba(14, 31, 68, .72); color: #fff;
+  font-family: var(--sans, "Jost", sans-serif);
+  font-size: .74rem; letter-spacing: .06em;
+  padding: 4px 10px; border-radius: 20px;
+}
+
+.lg-thumb {
+  padding: 0; border: 0; background: none; cursor: pointer; display: block;
+  border-radius: 6px; overflow: hidden; line-height: 0;
+  box-shadow: 0 0 0 1px rgba(14, 31, 68, .1);
+  transition: box-shadow .2s ease;
+}
+.lg-thumb img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
+.lg-thumb:hover { box-shadow: 0 0 0 2px rgba(14, 31, 68, .35); }
+.lg-thumb.is-current { box-shadow: 0 0 0 2px var(--brass, #e0303f); }
+.lg-thumb:focus-visible { outline: 2px solid var(--brass, #e0303f); outline-offset: 2px; }
+
+@media (max-width: 560px) {
+  .lg-nav { width: 40px; height: 40px; }
+  .lg-prev { left: 8px; }
+  .lg-next { right: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lg-nav { transition: none; }
+}

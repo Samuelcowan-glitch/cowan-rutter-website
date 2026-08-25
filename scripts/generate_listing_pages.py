@@ -129,6 +129,7 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
 {footer}
 
   <script src="../../js/main.js"></script>
+  <script src="../../js/listing-gallery.js"></script>
 </body>
 </html>
 """
@@ -226,22 +227,49 @@ def build_page(listing):
     if hero_url:
         og_image = f'<meta property="og:image" content="{esc(hero_url)}" />'
         twitter_image = f'<meta name="twitter:image" content="{esc(hero_url)}" />'
+
+        # Every photograph uploaded against this listing, at display size. The
+        # gallery script reads this list, so the page carries one copy of the
+        # image data and no more.
+        full_urls = [sized(p, 1400) for p in photos] or [hero_url]
+        photos_json = esc(json.dumps(full_urls))
+
+        arrows = ""
+        counter = ""
+        if len(full_urls) > 1:
+            arrows = (
+                '<button type="button" class="lg-nav lg-prev" aria-label="Previous photograph">'
+                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" '
+                'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+                '<polyline points="15 18 9 12 15 6"></polyline></svg></button>'
+                '<button type="button" class="lg-nav lg-next" aria-label="Next photograph">'
+                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" '
+                'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+                '<polyline points="9 18 15 12 9 6"></polyline></svg></button>'
+            )
+            counter = f'<div class="lg-count">1 / {len(full_urls)}</div>'
+
         image_block = (
+            f'<div class="lg-frame" data-photos="{photos_json}" tabindex="0" '
+            f'role="group" aria-label="Photographs of {esc(address)}">'
             # No width/height attributes: they become presentational hints that
             # beat the CSS aspect-ratio and stretch the image. aspect-ratio
             # already reserves the space, so there is no layout shift.
-            f'<img src="{esc(hero_url)}" alt="{esc(address)}" fetchpriority="high" '
-            f'style="width:100%;border-radius:8px;aspect-ratio:16/9;object-fit:cover" />'
+            f'<img class="lg-main" src="{esc(hero_url)}" alt="{esc(address)}" '
+            f'data-alt-base="{esc(address)}" fetchpriority="high" />'
+            f'{arrows}{counter}</div>'
         )
-        if len(photos) > 1:
+
+        if len(full_urls) > 1:
             thumbs = "".join(
-                f'<a href="{esc(sized(p, 1400))}" target="_blank" rel="noopener">'
-                f'<img src="{esc(sized(p, 500))}" alt="{esc(address)} &mdash; photograph {i + 2}" loading="lazy" decoding="async" '
-                f'style="width:100%;border-radius:6px;aspect-ratio:4/3;object-fit:cover" /></a>'
-                for i, p in enumerate(photos[1:9])
+                f'<button type="button" class="lg-thumb" '
+                f'aria-label="Show photograph {i + 1} of {len(full_urls)}">'
+                f'<img src="{esc(sized(p, 500))}" alt="{esc(address)} &mdash; photograph {i + 1}" '
+                f'loading="lazy" decoding="async" /></button>'
+                for i, p in enumerate(photos[:12])
             )
             image_block += (
-                '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));'
+                '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));'
                 f'gap:10px;margin-top:10px">{thumbs}</div>'
             )
 
