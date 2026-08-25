@@ -191,11 +191,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://cowanandrutter.com/listings/unit-6-talina-centre-units-6-12-the-talina-centre-bagleys-lane-cr-lst-48/</loc>
-    <lastmod>2026-07-14</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://cowanandrutter.com/listings/unit-403-404-the-plaza-535-kings-road-cr-lst-104/</loc>
     <lastmod>2026-08-24</lastmod>
     <priority>0.6</priority>
@@ -233,6 +228,11 @@
   <url>
     <loc>https://cowanandrutter.com/listings/the-plaza-535-kings-road-cr-lst-103/</loc>
     <lastmod>2026-08-24</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cowanandrutter.com/listings/69-new-kings-road-london-cr-lst-105/</loc>
+    <lastmod>2026-08-25</lastmod>
     <priority>0.6</priority>
   </url>
 </urlset>
