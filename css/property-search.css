@@ -183,7 +183,7 @@
 
 .lg-nav {
   position: absolute; top: 50%; transform: translateY(-50%);
-  width: 46px; height: 46px; border-radius: 50%;
+  width: 60px; height: 60px; border-radius: 50%;
   border: 0; cursor: pointer;
   background: rgba(255, 255, 255, .88);
   color: var(--ink, #0e1f44);
@@ -195,7 +195,7 @@
 .lg-nav:hover { background: #fff; }
 .lg-nav:active { transform: translateY(-50%) scale(.94); }
 .lg-nav:focus-visible { outline: 2px solid var(--brass, #e0303f); outline-offset: 2px; }
-.lg-nav svg { width: 17px; height: 17px; }
+.lg-nav svg { width: 23px; height: 23px; }
 .lg-prev { left: 12px; }
 .lg-next { right: 12px; }
 
@@ -219,7 +219,8 @@
 .lg-thumb:focus-visible { outline: 2px solid var(--brass, #e0303f); outline-offset: 2px; }
 
 @media (max-width: 560px) {
-  .lg-nav { width: 40px; height: 40px; }
+  .lg-nav { width: 50px; height: 50px; }
+  .lg-nav svg { width: 20px; height: 20px; }
   .lg-prev { left: 8px; }
   .lg-next { right: 8px; }
 }
