@@ -231,8 +231,23 @@
     else if (key === 'price-desc') a.sort(function (x, y) { return annual(y) - annual(x); });
     else if (key === 'newest') a.sort(function (x, y) { return new Date(y.added) - new Date(x.added); });
     else if (key === 'size')   a.sort(function (x, y) { return y.sqft - x.sqft; });
-    else a.sort(function (x, y) { return (y.featured ? 1 : 0) - (x.featured ? 1 : 0) || new Date(y.added) - new Date(x.added); });
+    else a.sort(function (x, y) { return rank(x) - rank(y) || new Date(y.added) - new Date(x.added); });
     return a;
+  }
+
+  // Default order of the results: featured properties first, then what is
+  // openly available, then everything that is under way or finished. Within
+  // each band the existing order applies — newest first.
+  function rank(l) {
+    if (l.featured) return 0;                       // featured beats its own status
+    switch (normStatus(l)) {
+      case 'under-offer': return 3;
+      case 'sold':
+      case 'sold-stc':    return 4;
+      case 'let-agreed':  return 5;
+      case 'withdrawn':   return 6;
+      default:            return l.status === 'sale' ? 1 : 2;   // For Sale, then To Let
+    }
   }
 
   window.CR_LISTINGS = L;
