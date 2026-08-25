@@ -196,7 +196,21 @@ def build_page(listing):
     category = listing.get("category") or "commercial"
     category_label = "Residential" if category == "residential" else "Commercial"
     status = listing.get("status") or "available"
-    status_label = {"let": "To Let", "sale": "For Sale", "sold": "Sold", "available": "Available"}.get(status, status.title())
+    # The marketing status (Under Offer / Let Agreed / Sold / Withdrawn) takes
+    # precedence over the transaction type, matching what the search cards show
+    # via statusLabel() in js/listings.js. Without this a withdrawn or
+    # let-agreed property still read "To Let" on its own details page.
+    listing_status = str(listing.get("listingStatus") or "available").lower().replace(" ", "-")
+    status_label = {
+        "under-offer": "Under Offer",
+        "let-agreed": "Let Agreed",
+        "sold": "Sold",
+        "sold-stc": "Sold STC",
+        "withdrawn": "Withdrawn",
+    }.get(listing_status)
+    if not status_label:
+        status_label = {"let": "To Let", "sale": "For Sale", "sold": "Sold",
+                        "available": "Available"}.get(status, status.title())
 
     blurb = listing.get("blurb") or ""
     blurb_plain = re.sub(r"\s+", " ", blurb).strip()
@@ -340,7 +354,10 @@ def build_page(listing):
             "@type": "Offer",
             "price": listing["price"],
             "priceCurrency": "GBP",
-            "availability": "https://schema.org/InStock" if status != "sold" else "https://schema.org/SoldOut",
+            "availability": ("https://schema.org/SoldOut"
+                             if status == "sold" or listing_status in
+                             ("sold", "sold-stc", "let-agreed", "withdrawn")
+                             else "https://schema.org/InStock"),
             "url": canonical,
         }
         if listing.get("priceUnit") in ("pa", "pcm"):
