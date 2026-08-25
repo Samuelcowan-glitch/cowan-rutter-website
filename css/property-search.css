@@ -228,3 +228,8 @@
 @media (prefers-reduced-motion: reduce) {
   .lg-nav { transition: none; }
 }
+
+/* Share button on a property's full details page. Only additions to .btn:
+   the icon and label need to sit on one baseline, which inline-block cannot do. */
+.btn-share { display: inline-flex; align-items: center; gap: 9px; vertical-align: top; }
+.btn-share svg { width: 15px; height: 15px; flex-shrink: 0; }
