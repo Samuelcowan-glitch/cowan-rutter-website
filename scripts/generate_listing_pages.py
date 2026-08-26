@@ -101,7 +101,7 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
 <body class="ps-page">
 {nav}
 
-  <section class="ps-hero" style="padding-bottom:40px">
+  <section class="ps-hero" style="padding-bottom:44px">
     <div class="container">
       <span class="eyebrow">{category_label} &middot; {status_label}</span>
       <h1>{address}</h1>
@@ -109,7 +109,7 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
     </div>
   </section>
 
-  <section class="container" style="max-width:820px;margin:0 auto 60px;padding:0 20px">
+  <section class="container" style="max-width:820px;margin:56px auto 60px;padding:0 20px">
     {image_block}
 
     <div style="display:flex;flex-wrap:wrap;gap:24px;margin:28px 0;font-size:.95rem;color:#3a4560">
