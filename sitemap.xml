@@ -206,11 +206,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://cowanandrutter.com/listings/harbour-yard-chelsea-harbour-london-cr-lst-90/</loc>
-    <lastmod>2026-07-28</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://cowanandrutter.com/listings/ground-floor-premises-lockside-house-1-thurstan-street-cr-lst-34/</loc>
     <lastmod>2026-06-29</lastmod>
     <priority>0.6</priority>
@@ -218,11 +213,6 @@
   <url>
     <loc>https://cowanandrutter.com/listings/suite-7-station-court-2-station-court-cr-lst-52/</loc>
     <lastmod>2026-07-14</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://cowanandrutter.com/listings/unit-6-hurlingham-business-park-cr-lst-41/</loc>
-    <lastmod>2026-07-05</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
@@ -238,6 +228,16 @@
   <url>
     <loc>https://cowanandrutter.com/listings/69-new-kings-road-london-cr-lst-105/</loc>
     <lastmod>2026-08-25</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cowanandrutter.com/listings/harbour-yard-chelsea-harbour-london-cr-lst-90/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cowanandrutter.com/listings/unit-6-hurlingham-business-park-cr-lst-41/</loc>
+    <lastmod>2026-07-05</lastmod>
     <priority>0.6</priority>
   </url>
 </urlset>
