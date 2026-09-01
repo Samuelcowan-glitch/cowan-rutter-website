@@ -131,11 +131,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://cowanandrutter.com/listings/ground-floor-unit-6-hurlingham-business-park-sulivan-road-cr-lst-87/</loc>
-    <lastmod>2026-07-23</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://cowanandrutter.com/listings/ground-floor-179-181-dawes-road-cr-lst-94/</loc>
     <lastmod>2026-07-28</lastmod>
     <priority>0.6</priority>
@@ -196,11 +191,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://cowanandrutter.com/listings/unit-6-talina-centre-the-talina-centre-bagleys-lane-cr-lst-106/</loc>
-    <lastmod>2026-08-25</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://cowanandrutter.com/listings/unit-3a-imperial-studios-imperial-road-cr-lst-101/</loc>
     <lastmod>2026-08-21</lastmod>
     <priority>0.6</priority>
@@ -226,6 +216,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://cowanandrutter.com/listings/ground-floor-unit-6-hurlingham-business-park-sulivan-road-cr-lst-87/</loc>
+    <lastmod>2026-07-23</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://cowanandrutter.com/listings/the-plaza-535-kings-road-cr-lst-103/</loc>
     <lastmod>2026-08-24</lastmod>
     <priority>0.6</priority>
@@ -243,6 +238,11 @@
   <url>
     <loc>https://cowanandrutter.com/listings/unit-6-hurlingham-business-park-cr-lst-41/</loc>
     <lastmod>2026-07-05</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cowanandrutter.com/listings/unit-6-talina-centre-the-talina-centre-bagleys-lane-cr-lst-106/</loc>
+    <lastmod>2026-08-25</lastmod>
     <priority>0.6</priority>
   </url>
 </urlset>
