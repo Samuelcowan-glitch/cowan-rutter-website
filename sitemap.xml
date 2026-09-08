@@ -196,11 +196,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://cowanandrutter.com/listings/ground-floor-premises-lockside-house-1-thurstan-street-cr-lst-34/</loc>
-    <lastmod>2026-06-29</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://cowanandrutter.com/listings/suite-7-station-court-2-station-court-cr-lst-52/</loc>
     <lastmod>2026-07-14</lastmod>
     <priority>0.6</priority>
@@ -248,6 +243,11 @@
   <url>
     <loc>https://cowanandrutter.com/listings/first-second-floor-premises-416-kings-road-london-cr-lst-88/</loc>
     <lastmod>2026-07-25</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cowanandrutter.com/listings/ground-floor-premises-lockside-house-1-thurstan-street-cr-lst-34/</loc>
+    <lastmod>2026-06-29</lastmod>
     <priority>0.6</priority>
   </url>
 </urlset>
