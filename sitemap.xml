@@ -66,11 +66,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://cowanandrutter.com/listings/591-593-kings-road-cr-lst-47/</loc>
-    <lastmod>2026-07-14</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://cowanandrutter.com/listings/furniture-arts-building-first-floor-533-kings-road-cr-lst-49/</loc>
     <lastmod>2026-07-14</lastmod>
     <priority>0.6</priority>
@@ -238,6 +233,11 @@
   <url>
     <loc>https://cowanandrutter.com/listings/ground-floor-premises-lockside-house-1-thurstan-street-cr-lst-34/</loc>
     <lastmod>2026-06-29</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cowanandrutter.com/listings/591-593-kings-road-cr-lst-47/</loc>
+    <lastmod>2026-07-14</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
