@@ -198,6 +198,14 @@ def build_facts(listing):
         facts.append(f"<div><strong>{esc(listing['tenure'])}</strong><br>Tenure</div>")
     if listing.get("leaseYears"):
         facts.append(f"<div><strong>{esc(listing['leaseYears'])} yrs</strong><br>Lease Remaining</div>")
+    # Both arrive from the CRM already worded — the service charge as
+    # "£4.50 per sq ft" or "Included", the EPC as its band. Nothing is phrased
+    # here, so the website, the brochure and the CRM cannot describe the same
+    # figure in three different ways.
+    if listing.get("serviceCharge"):
+        facts.append(f"<div><strong>{esc(listing['serviceCharge'])}</strong><br>Service Charge</div>")
+    if listing.get("epc"):
+        facts.append(f"<div><strong>{esc(listing['epc'])}</strong><br>EPC Rating</div>")
     return "\n      ".join(facts)
 
 
