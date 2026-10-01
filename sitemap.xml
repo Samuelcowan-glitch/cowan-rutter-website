@@ -131,11 +131,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://cowanandrutter.com/listings/worlds-end-studios-132-134-lots-road-cr-lst-50/</loc>
-    <lastmod>2026-07-14</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://cowanandrutter.com/listings/100-waterford-new-kings-road-cheslea-cr-lst-42/</loc>
     <lastmod>2026-07-05</lastmod>
     <priority>0.6</priority>
@@ -198,6 +193,11 @@
   <url>
     <loc>https://cowanandrutter.com/listings/ground-floor-unit-6-hurlingham-business-park-sulivan-road-cr-lst-87/</loc>
     <lastmod>2026-07-23</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://cowanandrutter.com/listings/worlds-end-studios-132-134-lots-road-cr-lst-50/</loc>
+    <lastmod>2026-07-14</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
