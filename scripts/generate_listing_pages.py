@@ -314,7 +314,7 @@ def build_page(listing):
     # Bold section headings (Jost 600, spaced uppercase — matches the search-panel style)
     h3_style = "font-size:.85rem;font-family:var(--sans);font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--ink);margin:0 0 8px"
 
-    blurb_html = f'<div style="margin-top:20px"><h3 style="{h3_style}">Description</h3><p style="line-height:1.7;margin:0">{esc(blurb_plain)}</p></div>' if blurb_plain else ""
+    blurb_html = f'<div style="margin-top:20px"><h3 style="{h3_style}">Description</h3><p style="line-height:1.7;margin:0;white-space:pre-line">{esc(blurb.strip())}</p></div>' if blurb_plain else ""
 
     key_terms = listing.get("keyTerms") or ""
     key_terms_html = ""
@@ -325,7 +325,7 @@ def build_page(listing):
     location_text = listing.get("locationText") or ""
     location_html = ""
     if location_text.strip():
-        location_html = f'<div style="margin-top:20px"><h3 style="{h3_style}">Location</h3><p style="line-height:1.7;margin:0">{esc(location_text.strip())}</p></div>'
+        location_html = f'<div style="margin-top:20px"><h3 style="{h3_style}">Location</h3><p style="line-height:1.7;margin:0;white-space:pre-line">{esc(location_text.strip())}</p></div>'
 
     listing_schema = {
         "@context": "https://schema.org",

@@ -153,7 +153,7 @@
 .ps-keyterms li { margin: 3px 0; }
 .ps-location { margin-top: 20px; }
 .ps-location h4 { margin: 0 0 6px; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink, #0e1f44); font-weight: 600; }
-.ps-location p { margin: 0; font-size: .95rem; color: var(--muted, #5b6675); line-height: 1.75; }
+.ps-location p { margin: 0; font-size: .95rem; color: var(--muted, #5b6675); line-height: 1.75; white-space: pre-line; }
 /* downloadable documents (brochure / floor plan) */
 .ps-docs { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
 .ps-doc { display: inline-flex; align-items: center; gap: 8px; font-family: var(--sans, "Jost", sans-serif); font-size: .8rem; letter-spacing: .04em; color: var(--ink, #0e1f44); text-decoration: none; border: 1px solid rgba(14,31,68,.2); padding: 10px 15px; transition: background .2s, color .2s, border-color .2s; }
